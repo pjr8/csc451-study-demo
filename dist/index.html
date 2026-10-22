@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f7f2" />
+    <meta name="description" content="An interactive CSC 451 practice exam. Answer, review, and repeat." />
+    <title>CSC 451 — Practice</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="network-work.css" />
+    <link rel="stylesheet" href="lessons.css" />
+    <link rel="stylesheet" href="backprop-lesson.css" />
+    <script src="lessons.js" defer></script>
+    <script src="backprop-engine.js" defer></script>
+    <script src="backprop-cases.js" defer></script>
+    <script src="backprop-lesson.js" defer></script>
+    <script src="variants.js" defer></script>
+    <script src="scheduler.js" defer></script>
+    <script src="network-work.js" defer></script>
+    <script src="app.js" type="module"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#workspace">Skip to question</a>
+    <header class="app-header">
+      <div class="brand" aria-label="CSC 451 Practice">
+        <div class="brand-mark" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 24 24" fill="none"><path d="M5 6.5 12 3l7 3.5v11L12 21l-7-3.5v-11Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m5.5 7 6.5 4 6.5-4M12 11v9" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="11" r="2" fill="currentColor"/></svg>
+        </div>
+        <div class="brand-name">CSC <span>451</span></div>
+      </div>
+      <nav class="area-nav" aria-label="Sections">
+        <button type="button" data-area="practice" aria-current="page">Practice</button>
+        <button type="button" data-area="learn">Learn</button>
+        <button type="button" data-area="history">Session</button>
+      </nav>
+      <div class="header-controls">
+        <div class="mode-control" id="mode-control">
+          <label class="sr-only" for="mode-select">Study mode</label>
+          <select id="mode-select">
+            <option value="quiz">Quiz</option>
+            <option value="recall">Recall</option>
+            <option value="variants">Calculations</option>
+            <option value="smart">Review queue</option>
+            <option value="learn" hidden>Learn metrics</option>
+            <option value="history" hidden>Session summary</option>
+          </select>
+          <svg class="select-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="scope-control" id="scope-control">
+          <label class="sr-only" for="scope-select">Question set</label>
+          <select id="scope-select">
+            <option value="all">All · 70</option>
+            <option value="mcq">Multiple choice · 50</option>
+            <option value="concepts">Short answer · 10</option>
+            <option value="backprop">Backprop · 10</option>
+          </select>
+          <svg class="select-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <label class="shuffle-control" id="shuffle-control" for="shuffle-toggle">
+          <input type="checkbox" id="shuffle-toggle" />
+          <span class="switch-track" aria-hidden="true"><span></span></span>
+          <span>Shuffle</span>
+        </label>
+        <span class="control-divider" aria-hidden="true"></span>
+        <button id="restart-button" class="restart-button" type="button" title="Restart practice">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 5.5A5.5 5.5 0 1 1 2.5 9M3 2v3.5h3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Restart</span>
+        </button>
+      </div>
+    </header>
+
+    <aside class="demo-notice" aria-label="Demo information"><strong>Public demo</strong><span>AI removed to make this demo public.</span><span>Nothing is saved. Refresh to reset.</span></aside>
+    <div class="app-shell">
+      <aside class="study-sidebar" id="study-sidebar" aria-label="Study navigation">
+        <div class="sidebar-heading">
+          <div class="section-eyebrow">Your session</div>
+          <span class="live-dot" aria-hidden="true"></span>
+        </div>
+        <div id="session-stats" class="session-stats" aria-label="Session statistics"></div>
+        <button id="smart-review-button" class="smart-review-button" type="button">Review queue <span id="due-count">0 due</span></button>
+        <div id="review-status" class="review-status" role="status" aria-live="polite"></div>
+        <div class="sidebar-rule"></div>
+        <div class="question-map-heading">
+          <h2>Question map</h2>
+          <span class="map-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="1" y="1" width="3" height="3" rx=".75"/><rect x="5.5" y="1" width="3" height="3" rx=".75"/><rect x="10" y="1" width="3" height="3" rx=".75"/><rect x="1" y="5.5" width="3" height="3" rx=".75"/><rect x="5.5" y="5.5" width="3" height="3" rx=".75"/><rect x="10" y="5.5" width="3" height="3" rx=".75"/><rect x="1" y="10" width="3" height="3" rx=".75"/><rect x="5.5" y="10" width="3" height="3" rx=".75"/><rect x="10" y="10" width="3" height="3" rx=".75"/></svg></span>
+        </div>
+        <nav id="question-nav" class="question-nav" aria-label="Questions"></nav>
+        <div class="map-legend" aria-hidden="true">
+          <span><i class="legend-dot correct"></i>Correct</span>
+          <span><i class="legend-dot wrong"></i>Review</span>
+          <span><i class="legend-bookmark"></i>Saved</span>
+        </div>
+        <div class="save-status" id="save-status" role="status">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4.25 8 2.5 2.5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/></svg>
+          <span>This tab only · refresh resets</span>
+        </div>
+      </aside>
+
+      <div class="study-main">
+        <div class="study-progress">
+          <div class="progress-topline">
+            <span class="progress-label" id="progress-label">Question 1 of 70</span>
+            <button class="mobile-map-button" id="nav-toggle" aria-controls="study-sidebar" aria-expanded="false" type="button">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2" y="2" width="4" height="4" rx=".8" stroke="currentColor" stroke-width="1.2"/><rect x="10" y="2" width="4" height="4" rx=".8" stroke="currentColor" stroke-width="1.2"/><rect x="2" y="10" width="4" height="4" rx=".8" stroke="currentColor" stroke-width="1.2"/><rect x="10" y="10" width="4" height="4" rx=".8" stroke="currentColor" stroke-width="1.2"/></svg>
+              <span>Questions</span>
+            </button>
+          </div>
+          <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width: 0%"></div></div>
+        </div>
+        <main id="workspace" class="workspace" tabindex="-1" aria-label="Practice question">
+          <div class="loading-state" aria-label="Loading practice exam"><span></span><span></span><span></span></div>
+        </main>
+        <footer class="keyboard-hint">
+          <span><kbd>A</kbd><kbd>B</kbd><kbd>C</kbd><kbd>D</kbd> Choose</span>
+          <span><kbd>↵</kbd> Next</span>
+          <span><kbd>F</kbd> Bookmark</span>
+        </footer>
+      </div>
+    </div>
+    <noscript><p class="noscript-message">Enable JavaScript to start the practice exam.</p></noscript>
+  </body>
+</html>

@@ -1,0 +1,504 @@
+[
+  {
+    "id": "A1", "number": 1, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "In classical programming, a person writes the rules. In supervised machine learning, what does the person supply instead?",
+    "choices": [
+      {"text": "A faster computer", "explanation": "Faster hardware can speed up training, but it does not provide the examples from which the model learns."},
+      {"text": "Examples of inputs paired with their correct outputs", "explanation": "In supervised learning, labeled input–output examples let the training process learn a mapping instead of relying on hand-written rules."},
+      {"text": "The final values of the weights", "explanation": "Training learns the final weight values. A person usually supplies an initial model and labeled data, not the final solution."},
+      {"text": "A list of rules for the computer to check", "explanation": "Explicitly supplying the decision rules describes classical programming; the learning setup here derives its rules from examples."}
+    ], "correct": 1
+  },
+  {
+    "id": "A2", "number": 2, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "A dataset has one row per house: square footage, number of bedrooms, and sale price. The model must predict the sale price. What is the sale price called?",
+    "choices": [
+      {"text": "A feature", "explanation": "Features are the inputs used to predict the price, such as square footage and number of bedrooms."},
+      {"text": "A parameter", "explanation": "Parameters are learned model values, such as weights and biases. The price is the target value in the dataset."},
+      {"text": "A hyperparameter", "explanation": "A hyperparameter configures training or the model, such as the learning rate. It is not the value being predicted."},
+      {"text": "The label", "explanation": "The label, also called the target, is the correct output the model is trained to predict: the sale price."}
+    ], "correct": 3
+  },
+  {
+    "id": "A3", "number": 3, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "A model scores 99% on the training data and 62% on the validation data. What is the most likely problem?",
+    "choices": [
+      {"text": "Overfitting: it memorized the training data", "explanation": "The large training–validation gap suggests overfitting: the model fits training-specific patterns that do not generalize well."},
+      {"text": "Underfitting: it is too simple", "explanation": "Underfitting typically produces poor training performance as well. A 99% training score points away from that explanation."},
+      {"text": "The learning rate is too small", "explanation": "A small learning rate can slow learning, but it does not directly explain excellent training performance and much worse validation performance."},
+      {"text": "The validation set is too large", "explanation": "Validation-set size alone does not cause this gap. The scores most strongly suggest that learned patterns fail to generalize."}
+    ], "correct": 0
+  },
+  {
+    "id": "A4", "number": 4, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "Which statement about the test set is correct?",
+    "choices": [
+      {"text": "It is used to update the weights", "explanation": "Weight updates use training data. Training on the test set would compromise its role as an independent evaluation."},
+      {"text": "It is used to pick the learning rate and the number of layers", "explanation": "Model and hyperparameter choices use the validation set. Choosing them from test results leaks test information into development."},
+      {"text": "It is used once, at the very end, to report how the model does on data it has never seen", "explanation": "The intended workflow reserves the test set until model selection is finished, giving a final estimate on held-out data."},
+      {"text": "It should be the largest of the three splits", "explanation": "There is no rule that the test split must be largest. Training commonly receives the most examples."}
+    ], "correct": 2
+  },
+  {
+    "id": "A5", "number": 5, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "What does a loss function do?",
+    "choices": [
+      {"text": "It counts how many parameters the model has", "explanation": "Parameter count describes model size. A loss measures how well predictions match their targets."},
+      {"text": "It compares the predictions to the correct answers and returns one number; lower is better", "explanation": "The training loss summarizes prediction error as a scalar objective. Optimization tries to reduce it."},
+      {"text": "It picks the learning rate", "explanation": "The learning rate is a training setting, chosen by you or a scheduling procedure, rather than the loss function."},
+      {"text": "It turns logits into probabilities", "explanation": "Sigmoid or softmax converts logits to probabilities. A loss evaluates the predictions against the targets, sometimes incorporating that conversion internally."}
+    ], "correct": 1
+  },
+  {
+    "id": "A6", "number": 6, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "What is one epoch?",
+    "choices": [
+      {"text": "One update of the weights", "explanation": "One weight update is an optimization step. An epoch usually contains many steps when training uses mini-batches."},
+      {"text": "One example passed through the model", "explanation": "Processing one example is not an epoch unless the entire training set contains just that example."},
+      {"text": "One full pass over the training set", "explanation": "An epoch means processing the complete training dataset once, usually in a sequence of batches."},
+      {"text": "One layer of the network", "explanation": "A layer is a part of the model architecture. An epoch measures progress through the training data."}
+    ], "correct": 2
+  },
+  {
+    "id": "A7", "number": 7, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "A neuron has weights w = [1, −2, 3] and bias b = 2. For the input x = [2, 1, 1], what is z = w · x + b?",
+    "choices": [
+      {"text": "3", "explanation": "3 is the dot product alone: 1×2 + (−2)×1 + 3×1 = 3. You must still add the bias 2."},
+      {"text": "9", "explanation": "9 would result from treating the weight −2 as +2. Keeping its sign gives 2 − 2 + 3 + 2 = 5."},
+      {"text": "1", "explanation": "The bias is added, not subtracted: the dot product is 3, so z = 3 + 2 = 5."},
+      {"text": "5", "explanation": "z = 1×2 + (−2)×1 + 3×1 + 2 = 2 − 2 + 3 + 2 = 5."}
+    ], "correct": 3
+  },
+  {
+    "id": "A8", "number": 8, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "ReLU(z) = max(0, z). What are ReLU(−3) and ReLU(2)?",
+    "choices": [
+      {"text": "0 and 2", "explanation": "ReLU clips negative inputs to zero and leaves positive inputs unchanged: max(0, −3) = 0 and max(0, 2) = 2."},
+      {"text": "−3 and 2", "explanation": "This leaves the negative input unchanged. ReLU replaces −3 with 0."},
+      {"text": "0 and 0", "explanation": "Only the negative input is clipped. The positive input 2 passes through unchanged."},
+      {"text": "3 and 2", "explanation": "This describes absolute values, not ReLU. ReLU maps −3 to 0, not +3."}
+    ], "correct": 0
+  },
+  {
+    "id": "A9", "number": 9, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "Why does a neural network need a non-linear activation, such as ReLU, between its linear layers?",
+    "choices": [
+      {"text": "Without it, the outputs could be larger than 1", "explanation": "ReLU itself can produce values larger than 1. Its purpose here is adding nonlinearity, not imposing a probability range."},
+      {"text": "Without it, any stack of linear layers has the same power as one linear layer", "explanation": "Composing linear layers gives another linear map; with biases, another affine map. Nonlinear activations let deeper networks represent more complex relationships."},
+      {"text": "Without it, the network cannot run on a GPU", "explanation": "GPUs can run matrix multiplications with or without activations. Hardware compatibility is not the reason for nonlinearity."},
+      {"text": "Without it, the network would have no parameters", "explanation": "Linear layers still contain learned weights and usually biases. Removing activations does not remove those parameters."}
+    ], "correct": 1
+  },
+  {
+    "id": "A10", "number": 10, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "A fully connected network has layer sizes 3–4–1. Use the rule \"(inputs × outputs) weights, plus one bias per output\" for each layer. How many learnable parameters does it have?",
+    "choices": [
+      {"text": "12", "explanation": "12 counts only the first layer's 3×4 weights. It omits that layer's biases and the entire output layer."},
+      {"text": "16", "explanation": "16 could count the 12+4 weights across both layers, but omits the 4+1 biases. The total is 21."},
+      {"text": "21", "explanation": "The first layer has 3×4 + 4 = 16 parameters; the output layer has 4×1 + 1 = 5. Total: 16 + 5 = 21."},
+      {"text": "19", "explanation": "There are 16 weights and 5 biases. Counting one bias per output in both layers gives 21, not 19."}
+    ], "correct": 2
+  },
+  {
+    "id": "A11", "number": 11, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "A model must say which one of 5 animal types appears in a photo. What should its output layer look like?",
+    "choices": [
+      {"text": "1 unit, no activation, MSE loss", "explanation": "This is a typical scalar-regression setup. Five mutually exclusive classes need five class scores in the standard classification setup."},
+      {"text": "1 unit, sigmoid, binary cross-entropy loss", "explanation": "One sigmoid output models two classes. It does not provide the five class probabilities needed here."},
+      {"text": "5 units, ReLU, MSE loss", "explanation": "ReLU does not normalize scores into a class-probability distribution. Softmax probabilities with cross-entropy are the standard fit for this task."},
+      {"text": "5 units, softmax, cross-entropy loss", "explanation": "Best conceptual answer: five class scores, softmax probabilities, and cross-entropy. In PyTorch, feed five raw logits directly to nn.CrossEntropyLoss; it includes log-softmax, so do not apply softmax first."}
+    ], "correct": 3
+  },
+  {
+    "id": "A12", "number": 12, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "Which of these is a hyperparameter (chosen by you, not learned by training)?",
+    "choices": [
+      {"text": "The learning rate", "explanation": "The learning rate controls the size of optimization updates and is chosen as a training setting rather than learned as a model weight."},
+      {"text": "A weight in the first layer", "explanation": "A weight is a model parameter: optimization adjusts it using gradients during training."},
+      {"text": "The bias of the output unit", "explanation": "A bias is also a learned model parameter, not a hyperparameter."},
+      {"text": "The gradient of the loss", "explanation": "A gradient is calculated from the current model, data, and loss. It is not a setting selected before training."}
+    ], "correct": 0
+  },
+  {
+    "id": "A13", "number": 13, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "What does backpropagation do?",
+    "choices": [
+      {"text": "It updates the weights", "explanation": "Backpropagation computes gradients. The optimizer then uses those gradients to update the weights."},
+      {"text": "It splits the data into training and validation sets", "explanation": "Dataset splitting is a separate preparation step. Backpropagation operates on the computation graph of the loss."},
+      {"text": "It chooses the learning rate", "explanation": "The learning rate is configured separately. Backpropagation tells the optimizer the loss gradient, not how large a step to take."},
+      {"text": "It computes the gradient of the loss for every parameter; a separate optimizer step updates the weights", "explanation": "Backpropagation applies the chain rule through the graph to compute parameter gradients. A separate optimizer step performs the update."}
+    ], "correct": 3
+  },
+  {
+    "id": "A14", "number": 14, "part": "A", "topic": "Foundations", "adapted": false,
+    "prompt": "A model predicts [3, 5] for two examples whose true labels are [1, 5]. What is the MSE?",
+    "choices": [
+      {"text": "1", "explanation": "1 is the mean absolute error: (|3−1| + |5−5|)/2. MSE squares each error before averaging."},
+      {"text": "2", "explanation": "MSE = ((3−1)² + (5−5)²)/2 = (4 + 0)/2 = 2."},
+      {"text": "4", "explanation": "4 is the sum of squared errors. The mean divides by the two examples, giving 2."},
+      {"text": "8", "explanation": "The squared errors are 4 and 0. Their average is 2; multiplying by the number of examples would be incorrect."}
+    ], "correct": 1
+  },
+  {
+    "id": "A15", "number": 15, "part": "A", "topic": "Tensors", "adapted": false,
+    "prompt": "What does this print?",
+    "code": "x = torch.zeros(5, 3)\nprint(x.shape)",
+    "choices": [
+      {"text": "torch.Size([3, 5])", "explanation": "The dimensions have been reversed. zeros(5, 3) creates 5 rows and 3 columns, in that order."},
+      {"text": "torch.Size([15])", "explanation": "The tensor contains 15 elements, but shape reports its dimensions. No flattening occurred."},
+      {"text": "torch.Size([5, 3])", "explanation": "The two size arguments define the tensor's shape directly: 5 rows by 3 columns."},
+      {"text": "torch.Size([5])", "explanation": "This omits the second dimension. The tensor is two-dimensional with shape (5, 3)."}
+    ], "correct": 2
+  },
+  {
+    "id": "A16", "number": 16, "part": "A", "topic": "Tensors", "adapted": false,
+    "prompt": "What does this print?",
+    "code": "A = torch.arange(12.).reshape(3, 4)\nprint(A[2, 1])",
+    "choices": [
+      {"text": "tensor(6.)", "explanation": "6 is A[1, 2]. Indexing starts at zero, so A[2, 1] selects the third row's second value."},
+      {"text": "tensor(9.)", "explanation": "The rows are [0,1,2,3], [4,5,6,7], and [8,9,10,11]. Row 2, column 1 contains the floating-point scalar 9."},
+      {"text": "tensor([8., 9., 10., 11.])", "explanation": "That is the full third row, A[2]. Supplying the additional index 1 selects just the value 9."},
+      {"text": "tensor(7.)", "explanation": "7 is A[1, 3], the second row's last value. A[2, 1] is 9."}
+    ], "correct": 1
+  },
+  {
+    "id": "A17", "number": 17, "part": "A", "topic": "Tensors", "adapted": false,
+    "prompt": "x has shape (10, 4). What are the shapes of x[3] and x[3:4]?",
+    "choices": [
+      {"text": "(4,) and (1, 4)", "explanation": "Integer indexing selects one row and removes its row dimension. A one-row slice preserves that dimension, producing (1, 4)."},
+      {"text": "(4,) and (4,)", "explanation": "x[3] has shape (4,), but the slice x[3:4] preserves a row dimension of length 1."},
+      {"text": "(10,) and (1, 10)", "explanation": "The first index selects rows. Each selected row contains 4 values, not 10."},
+      {"text": "(1, 4) and (4,)", "explanation": "These shapes are reversed: integer indexing removes the dimension, while slicing preserves it."}
+    ], "correct": 0
+  },
+  {
+    "id": "A18", "number": 18, "part": "A", "topic": "Tensors", "adapted": false,
+    "prompt": "X has shape (6, 3) and W has shape (3, 2). What is the shape of X @ W?",
+    "choices": [
+      {"text": "(3, 3)", "explanation": "The shared inner dimension 3 is summed over. The output keeps 6 rows from X and 2 columns from W."},
+      {"text": "(6, 3)", "explanation": "The output has W's 2 columns, not X's 3 columns. Its shape is (6, 2)."},
+      {"text": "(2, 6)", "explanation": "This reverses the output dimensions. X @ W keeps the left matrix's rows first, then the right matrix's columns."},
+      {"text": "(6, 2)", "explanation": "Matrix multiplication follows (m, n) @ (n, p) → (m, p). Here (6, 3) @ (3, 2) → (6, 2)."}
+    ], "correct": 3
+  },
+  {
+    "id": "A19", "number": 19, "part": "A", "topic": "Tensors", "adapted": false,
+    "prompt": "Which matrix product fails with a shape error?",
+    "choices": [
+      {"text": "(2, 3) @ (3, 4)", "explanation": "This product is valid because the inner dimensions both equal 3. The result has shape (2, 4)."},
+      {"text": "(2, 3) @ (2, 3)", "explanation": "This fails: the left matrix has 3 columns, but the right matrix has 2 rows. Matrix multiplication requires those inner dimensions to match."},
+      {"text": "(5, 1) @ (1, 5)", "explanation": "The inner dimensions both equal 1, so this is a valid outer product with shape (5, 5)."},
+      {"text": "(4, 4) @ (4, 2)", "explanation": "The inner dimensions both equal 4, so the product is valid and has shape (4, 2)."}
+    ], "correct": 1
+  },
+  {
+    "id": "A20", "number": 20, "part": "A", "topic": "Tensors", "adapted": false,
+    "prompt": "What is torch.tensor([1., 2., 3.]) @ torch.tensor([2., 0., 1.])?",
+    "choices": [
+      {"text": "tensor([2., 0., 3.])", "explanation": "That is the elementwise product, produced by *. For two one-dimensional tensors, @ sums those products into a scalar."},
+      {"text": "tensor(6.)", "explanation": "The dot product is 1×2 + 2×0 + 3×1 = 2 + 0 + 3 = 5, not 6."},
+      {"text": "tensor(5.)", "explanation": "For two length-3 vectors, @ computes their dot product: 1×2 + 2×0 + 3×1 = 5."},
+      {"text": "A shape error", "explanation": "The vectors have equal length, so the dot product is valid and returns a scalar tensor."}
+    ], "correct": 2
+  },
+  {
+    "id": "A21", "number": 21, "part": "A", "topic": "Tensors", "adapted": false,
+    "prompt": "R = torch.tensor([[1, 2], [3, 4]]). What is R.sum(dim=0)?",
+    "choices": [
+      {"text": "tensor([4, 6])", "explanation": "Summing over dimension 0 collapses the rows: [1+3, 2+4] = [4, 6]. One total remains per column."},
+      {"text": "tensor([3, 7])", "explanation": "These are row sums, [1+2, 3+4], produced by sum(dim=1)."},
+      {"text": "tensor(10)", "explanation": "10 is the sum of all four entries, produced by R.sum() with no dimension specified."},
+      {"text": "tensor([1, 3])", "explanation": "This selects the first column rather than summing. sum(dim=0) adds the rows together."}
+    ], "correct": 0
+  },
+  {
+    "id": "A22", "number": 22, "part": "A", "topic": "Tensors", "adapted": false,
+    "prompt": "X = torch.tensor([[1., 2.], [3., 4.]]) and w = torch.tensor([1., 1.]). What is X @ w?",
+    "choices": [
+      {"text": "tensor([4., 6.])", "explanation": "These are column sums. X @ w takes the dot product of each row with w, producing row sums here."},
+      {"text": "tensor(10.)", "explanation": "10 sums all entries. A (2, 2) matrix times a length-2 vector returns a length-2 vector, not a scalar."},
+      {"text": "tensor([1., 2.])", "explanation": "That is X's first row. Matrix–vector multiplication computes one dot product for each of its two rows."},
+      {"text": "tensor([3., 7.])", "explanation": "The two row dot products are 1×1 + 2×1 = 3 and 3×1 + 4×1 = 7."}
+    ], "correct": 3
+  },
+  {
+    "id": "A23", "number": 23, "part": "A", "topic": "Gradient descent", "adapted": false,
+    "prompt": "A derivative df/dw, evaluated at a point, tells you two things. Which two?",
+    "choices": [
+      {"text": "The smallest value of f, and the w where it occurs", "explanation": "A derivative is local information. It does not by itself identify the global minimum or where that minimum occurs."},
+      {"text": "Which way f moves if you nudge w up, and how fast", "explanation": "For a small change Δw, Δf ≈ (df/dw)Δw. The derivative's sign gives direction; its magnitude gives the local rate of change."},
+      {"text": "The learning rate, and the number of steps needed", "explanation": "The learning rate is chosen separately, and convergence time depends on more than the derivative at one point."},
+      {"text": "The average value of f, and how much it varies", "explanation": "Those are statistical summaries of values across observations. A derivative describes local sensitivity to w."}
+    ], "correct": 1
+  },
+  {
+    "id": "A24", "number": 24, "part": "A", "topic": "Gradient descent", "adapted": false,
+    "prompt": "For f(w) = w², gradient descent starts at w = 2 with learning rate η = 0.25. Using w ← w − η · df/dw, what is w after one step?",
+    "choices": [
+      {"text": "1", "explanation": "df/dw = 2w = 4 at w = 2. The update is w = 2 − 0.25×4 = 1."},
+      {"text": "1.5", "explanation": "This uses w itself as the gradient. The derivative of w² is 2w, so the step is 1, not 0.5."},
+      {"text": "3", "explanation": "3 results from adding the gradient step. Gradient descent subtracts it: 2 − 1 = 1."},
+      {"text": "0", "explanation": "0 is the minimum, but this learning rate does not reach it in one step. The first update moves from 2 to 1."}
+    ], "correct": 0
+  },
+  {
+    "id": "A25", "number": 25, "part": "A", "topic": "Gradient descent", "adapted": false,
+    "prompt": "At the current value of w, dL/dw = +3. Which way does gradient descent move w?",
+    "choices": [
+      {"text": "Toward larger w", "explanation": "A positive derivative means increasing w locally increases the loss. Descent moves in the opposite direction."},
+      {"text": "It does not move", "explanation": "With a positive learning rate and nonzero gradient, the update is nonzero: Δw = −3η."},
+      {"text": "Toward smaller w", "explanation": "For η > 0, w_new = w − η×3 is smaller than w. A sufficiently small step follows the local downhill direction."},
+      {"text": "It depends only on the loss value, not on the slope", "explanation": "The gradient determines the descent direction. The current loss value alone does not tell you which way to move."}
+    ], "correct": 2
+  },
+  {
+    "id": "A26", "number": 26, "part": "A", "topic": "Gradient descent", "adapted": false,
+    "prompt": "For f(w, b) = 3w² + wb + 5b, what is ∂f/∂w?",
+    "choices": [
+      {"text": "6w + b + 5", "explanation": "When differentiating with respect to w, b is constant. The term 5b contributes zero, not 5."},
+      {"text": "3w + b", "explanation": "The power rule gives d(3w²)/dw = 6w, not 3w. The derivative of wb is b."},
+      {"text": "6w + wb", "explanation": "The derivative of wb with respect to w is b, because b is held constant. The factor w disappears."},
+      {"text": "6w + b", "explanation": "Hold b constant: ∂(3w²)/∂w = 6w, ∂(wb)/∂w = b, and ∂(5b)/∂w = 0."}
+    ], "correct": 3
+  },
+  {
+    "id": "A27", "number": 27, "part": "A", "topic": "Gradient descent", "adapted": false,
+    "prompt": "What usually happens if the learning rate is far too large?",
+    "choices": [
+      {"text": "Oversized steps can cause oscillation or divergence; severe numerical overflow may produce NaN", "explanation": "Oversized steps can overshoot useful regions, causing oscillation or divergence. Numerical overflow may eventually produce infinity or NaN; that outcome is not guaranteed."},
+      {"text": "Training is slow, but it always reaches the minimum", "explanation": "Very small rates often make progress slow. A rate that is too large can prevent convergence altogether."},
+      {"text": "The model gains extra layers", "explanation": "The learning rate changes update size. It does not alter the number of layers in the architecture."},
+      {"text": "The gradient becomes exactly zero", "explanation": "A large learning rate does not force gradients to zero. It changes how far the optimizer moves using the gradients."}
+    ], "correct": 0
+  },
+  {
+    "id": "A28", "number": 28, "part": "A", "topic": "Gradient descent", "adapted": false,
+    "prompt": "With a fixed learning rate, convergent gradient descent can take smaller steps as it nears a smooth minimum. Why?",
+    "choices": [
+      {"text": "PyTorch lowers the learning rate automatically", "explanation": "The question specifies a fixed learning rate. PyTorch does not automatically lower it unless an explicit schedule or procedure does so."},
+      {"text": "The loss becomes negative near the minimum", "explanation": "Step size depends on the gradient, not whether the loss is positive or negative. Many common losses have a nonnegative minimum."},
+      {"text": "The step is η × slope, and the slope shrinks toward zero near the minimum", "explanation": "Near a smooth interior minimum, the gradient approaches zero, so a fixed η produces smaller updates. This assumes a convergent descent process; it is not universal for nonsmooth minima or noisy gradients."},
+      {"text": "Fewer parameters are updated near the end", "explanation": "Gradient descent can continue updating every parameter. Smaller gradient magnitudes, rather than fewer parameters, explain the shrinking steps here."}
+    ], "correct": 2
+  },
+  {
+    "id": "A29", "number": 29, "part": "A", "topic": "Classification", "adapted": false,
+    "prompt": "Which of these is a regression problem?",
+    "choices": [
+      {"text": "Deciding whether an email is spam", "explanation": "Spam versus not spam is a binary classification task with discrete category labels."},
+      {"text": "Recognizing which digit, 0 to 9, is in an image", "explanation": "The targets are ten categories, so this is multiclass classification even though the class names are numbers."},
+      {"text": "Deciding whether a tumor is malignant", "explanation": "Malignant versus not malignant is a binary category decision, so it is classification."},
+      {"text": "Predicting tomorrow's high temperature", "explanation": "Temperature is a continuous numerical target. Predicting its value is regression."}
+    ], "correct": 3
+  },
+  {
+    "id": "A30", "number": 30, "part": "A", "topic": "Classification", "adapted": false,
+    "prompt": "What is a logit?",
+    "choices": [
+      {"text": "A probability between 0 and 1", "explanation": "A logit is an unnormalized score, not a probability. Sigmoid or softmax converts logits into probabilities."},
+      {"text": "The true label, written as 0 or 1", "explanation": "The true label is the target. A logit is a score predicted by the model before probability conversion."},
+      {"text": "The raw score from the last layer, before sigmoid or softmax; it can be any real number", "explanation": "Logits are unrestricted real-valued scores. A binary logit becomes a probability through sigmoid; class logits can be normalized with softmax."},
+      {"text": "The value of the loss for one example", "explanation": "The loss compares predictions with the target. The logit is an input to that calculation, not the resulting error value."}
+    ], "correct": 2
+  },
+  {
+    "id": "A31", "number": 31, "part": "A", "topic": "Classification", "adapted": false,
+    "prompt": "The sigmoid function is σ(z) = 1 / (1 + e^(−z)). What is σ(0)?",
+    "choices": [
+      {"text": "0", "explanation": "A zero input does not give a zero sigmoid output. Since e⁰ = 1, the denominator is 2."},
+      {"text": "1", "explanation": "The denominator is 1 + e⁰ = 2, so the result is 1/2, not 1."},
+      {"text": "Undefined", "explanation": "The denominator equals 2 and is nonzero. Sigmoid is defined at 0."},
+      {"text": "0.5", "explanation": "σ(0) = 1/(1 + e⁰) = 1/(1 + 1) = 0.5."}
+    ], "correct": 3
+  },
+  {
+    "id": "A32", "number": 32, "part": "A", "topic": "Classification", "adapted": false,
+    "prompt": "A binary classifier predicts class 1 when σ(z) > 0.5. For one example its logit is z = −2. What does it predict?",
+    "choices": [
+      {"text": "Class 0, because z < 0 means σ(z) < 0.5", "explanation": "Sigmoid is increasing and σ(0) = 0.5. A negative logit therefore gives a probability below 0.5, so the classifier predicts class 0."},
+      {"text": "Class 1, because σ(−2) is above 0.5", "explanation": "σ(−2) = 1/(1 + e²), which is below 0.5 because e² > 1."},
+      {"text": "Nothing, because a probability cannot come from a negative number", "explanation": "Sigmoid accepts any real logit, including negative values, and returns a probability between 0 and 1."},
+      {"text": "Class 0, because σ(−2) is negative", "explanation": "The class is correct, but the reason is false: sigmoid is always positive. Here its value is below 0.5, not below 0."}
+    ], "correct": 0
+  },
+  {
+    "id": "A33", "number": 33, "part": "A", "topic": "Classification", "adapted": false,
+    "prompt": "Softmax is applied to the logits [1.0, 1.0, 1.0]. What are the three probabilities?",
+    "choices": [
+      {"text": "[1, 1, 1]", "explanation": "These values sum to 3. Softmax normalizes the three equal exponentials so their probabilities sum to 1."},
+      {"text": "[1, 0, 0]", "explanation": "Equal logits receive equal probabilities. Softmax does not arbitrarily choose a single winner."},
+      {"text": "[0, 0, 0]", "explanation": "Softmax probabilities sum to 1, not 0. Each exponential is positive."},
+      {"text": "[1/3, 1/3, 1/3]", "explanation": "Each probability is e¹/(e¹ + e¹ + e¹) = 1/3. Equal logits produce a uniform distribution."}
+    ], "correct": 3
+  },
+  {
+    "id": "A34", "number": 34, "part": "A", "topic": "Classification", "adapted": false,
+    "prompt": "Cross-entropy loss for one example is −log(p), where p is the probability the model gives to the correct class. Which prediction has the largest loss?",
+    "choices": [
+      {"text": "p = 0.95", "explanation": "This assigns high probability to the correct class and gives the smallest loss among these choices. −log(p) decreases as p increases."},
+      {"text": "p = 0.50", "explanation": "Its loss is −ln(0.5) = ln 2 ≈ 0.693. A smaller correct-class probability produces a larger loss."},
+      {"text": "p = 0.02", "explanation": "0.02 is the smallest probability assigned to the correct class. Because −log(p) decreases with p, it gives the largest loss."},
+      {"text": "p = 0.30", "explanation": "This gives more loss than 0.50 or 0.95, but less than 0.02 because it assigns more probability to the correct class."}
+    ], "correct": 2
+  },
+  {
+    "id": "A35", "number": 35, "part": "A", "topic": "Classification", "adapted": false,
+    "prompt": "A disease-screening program prioritizes catching actual disease cases (the positive class). Which mistake does it aim to avoid, and which metric measures how often it succeeds?",
+    "choices": [
+      {"text": "A false alarm on a healthy patient; precision", "explanation": "Precision describes how often positive predictions are correct. The screening concern emphasized here is missing an actual positive case."},
+      {"text": "Missing a patient who has the disease; recall", "explanation": "A missed case is a false negative. Recall = TP/(TP + FN) measures the fraction of actual positive cases detected; the question prioritizes avoiding misses."},
+      {"text": "A false alarm on a healthy patient; recall", "explanation": "A false alarm is a false positive. Recall focuses on actual positives and missed cases, not false alarms among healthy people."},
+      {"text": "Missing a patient who has the disease; accuracy", "explanation": "The mistake matches the question's concern, but accuracy combines correct positive and negative predictions. Recall directly measures detection of actual cases."}
+    ], "correct": 1
+  },
+  {
+    "id": "A36", "number": 36, "part": "A", "topic": "Classification", "adapted": false, "context": "confusion",
+    "prompt": "What is the filter's accuracy?",
+    "choices": [
+      {"text": "8 / 16 = 0.50", "explanation": "8/(8+8) = 0.50 is precision: the fraction of predicted-spam emails that are actually spam."},
+      {"text": "8 / 10 = 0.80", "explanation": "8/(8+2) = 0.80 is recall: the fraction of actual spam emails that the filter detects."},
+      {"text": "90 / 100 = 0.90", "explanation": "Accuracy = (TP + TN)/total = (8 + 82)/100 = 0.90. It counts both kinds of correct prediction."},
+      {"text": "82 / 90", "explanation": "82/(82+8) is specificity: the fraction of actual non-spam emails correctly rejected. Accuracy uses all 100 emails."}
+    ], "correct": 2
+  },
+  {
+    "id": "A37", "number": 37, "part": "A", "topic": "Classification", "adapted": false, "context": "confusion",
+    "prompt": "What is the filter's precision?",
+    "choices": [
+      {"text": "8 / 16 = 0.50", "explanation": "Precision = TP/(TP + FP) = 8/(8 + 8) = 0.50. Half of the emails flagged as spam really are spam."},
+      {"text": "8 / 10 = 0.80", "explanation": "8/(8+2) is recall. Its denominator is actual positives; precision instead uses all predicted positives."},
+      {"text": "82 / 84", "explanation": "82/(82+2) is negative predictive value: the fraction of predicted non-spam emails that really are non-spam."},
+      {"text": "90 / 100 = 0.90", "explanation": "90/100 is overall accuracy. Precision considers only the 16 emails predicted to be spam."}
+    ], "correct": 0
+  },
+  {
+    "id": "A38", "number": 38, "part": "A", "topic": "Classification", "adapted": false, "context": "confusion",
+    "prompt": "What is the filter's recall?",
+    "choices": [
+      {"text": "8 / 16 = 0.50", "explanation": "8/(8+8) is precision, using predicted positives. Recall uses the 10 emails that actually are spam."},
+      {"text": "2 / 10 = 0.20", "explanation": "2/(8+2) is the false-negative rate: the fraction of actual spam that is missed. Recall is its complement here."},
+      {"text": "8 / 100 = 0.08", "explanation": "This divides true positives by every email. Recall divides true positives by actual positives only."},
+      {"text": "8 / 10 = 0.80", "explanation": "Recall = TP/(TP + FN) = 8/(8 + 2) = 0.80. The filter catches 8 of the 10 spam emails."}
+    ], "correct": 3
+  },
+  {
+    "id": "A39", "number": 39, "part": "A", "topic": "Classification", "adapted": false, "context": "confusion",
+    "prompt": "A lazy model labels every email \"not spam.\" On the same 100 emails, what are its accuracy and recall?",
+    "choices": [
+      {"text": "Accuracy 0.10, recall 1.0", "explanation": "These would describe labeling every email spam. Predicting not spam catches none of the 10 actual spam emails."},
+      {"text": "Accuracy 0.90, recall 0", "explanation": "It correctly labels all 90 non-spam emails, so accuracy is 90/100 = 0.90. TP = 0 and FN = 10, so recall is 0/10 = 0."},
+      {"text": "Accuracy 0.90, recall 0.90", "explanation": "The accuracy is correct, but recall is zero because the model never identifies any spam. Majority-class accuracy can hide this failure."},
+      {"text": "Accuracy 0, recall 0", "explanation": "Recall is zero, but accuracy is not: all 90 actual non-spam emails are correctly predicted."}
+    ], "correct": 1
+  },
+  {
+    "id": "A40", "number": 40, "part": "A", "topic": "One neuron", "adapted": false,
+    "prompt": "For one training example the activation is a = 0.9 and the true label is y = 1. Using dz = a − y, what is dz, and which way should training move z?",
+    "choices": [
+      {"text": "dz = −0.1; push z up", "explanation": "dz = 0.9 − 1 = −0.1. Descent moves opposite this gradient, toward larger z and a higher predicted probability for the positive label."},
+      {"text": "dz = 0.1; push z down", "explanation": "The subtraction is reversed: a − y = −0.1. Lowering z would reduce the sigmoid probability even though the target is 1."},
+      {"text": "dz = 1.9; push z down", "explanation": "1.9 adds a and y. The stated gradient is their difference, 0.9 − 1 = −0.1."},
+      {"text": "dz = 0; leave z alone", "explanation": "The prediction 0.9 differs from the label 1, so a − y is nonzero. There is still a signal to increase z."}
+    ], "correct": 0
+  },
+  {
+    "id": "A41", "number": 41, "part": "A", "topic": "One neuron", "adapted": false,
+    "prompt": "For one example, x = [2, 0, −1] and dz = 0.5. Using dwⱼ = xⱼ · dz, what is dw?",
+    "choices": [
+      {"text": "[2.5, 0.5, −0.5]", "explanation": "The rule multiplies each input by dz; it does not add dz. The first two gradients are 1 and 0."},
+      {"text": "[1, 0, −0.5]", "explanation": "Multiply componentwise: [2×0.5, 0×0.5, (−1)×0.5] = [1, 0, −0.5]."},
+      {"text": "[0.5, 0.5, 0.5]", "explanation": "Each weight's gradient depends on its own input. They are not all equal to dz; the zero input gives a zero gradient."},
+      {"text": "[1, 0.5, 0.5]", "explanation": "The first component is correct. But 0×0.5 = 0, and (−1)×0.5 = −0.5, so the remaining two are wrong."}
+    ], "correct": 1
+  },
+  {
+    "id": "A42", "number": 42, "part": "A", "topic": "One neuron", "adapted": false,
+    "prompt": "A weight is w = 1.0, its gradient is dw = 0.4, and the learning rate is η = 0.5. What is w after the update w ← w − η · dw?",
+    "choices": [
+      {"text": "0.8", "explanation": "The step size is η×dw = 0.5×0.4 = 0.2. Subtract it from 1.0 to get 0.8."},
+      {"text": "1.2", "explanation": "This adds the 0.2 step. Gradient descent subtracts the positive gradient step, giving 0.8."},
+      {"text": "0.6", "explanation": "This subtracts the gradient without multiplying by the learning rate. The actual subtraction is 0.5×0.4 = 0.2."},
+      {"text": "1.4", "explanation": "This both adds the gradient and omits the learning-rate factor. The required update is 1.0 − 0.5×0.4 = 0.8."}
+    ], "correct": 0
+  },
+  {
+    "id": "A43", "number": 43, "part": "A", "topic": "One neuron", "adapted": false,
+    "prompt": "A bias works like a weight whose input is always 1. For one example, dz = −0.3. What is db?",
+    "choices": [
+      {"text": "−0.3", "explanation": "Because z contains +b, ∂z/∂b = 1. Therefore db = dz×1 = −0.3."},
+      {"text": "0.3", "explanation": "The gradient keeps the sign of dz. The subtraction used during an optimizer update does not change the definition of db."},
+      {"text": "0", "explanation": "The bias's effective input is 1, not 0, so its gradient is not blocked by a zero input."},
+      {"text": "1", "explanation": "1 is the local derivative ∂z/∂b. The full loss gradient also includes the incoming dz, giving −0.3."}
+    ], "correct": 0
+  },
+  {
+    "id": "A44", "number": 44, "part": "A", "topic": "Backpropagation", "adapted": false,
+    "prompt": "In the backward pass, a node receives a gradient of −2 from its right. Its local gradient is 3. What gradient does it pass on to its left?",
+    "choices": [
+      {"text": "1", "explanation": "1 comes from adding −2 and 3. Along a chain, backpropagation multiplies the incoming and local derivatives."},
+      {"text": "−6", "explanation": "The chain rule multiplies the incoming gradient by the local gradient: (−2)×3 = −6."},
+      {"text": "−2/3", "explanation": "The chain rule multiplies by the local derivative, not divides by it. The correct product is −6."},
+      {"text": "5", "explanation": "Combining magnitudes by addition loses the negative sign and uses the wrong operation. Backpropagation gives (−2)×3 = −6."}
+    ], "correct": 1
+  },
+  {
+    "id": "A45", "number": 45, "part": "A", "topic": "Backpropagation", "adapted": false,
+    "prompt": "A multiply node computes m = a · b. What is its local gradient ∂m/∂a?",
+    "choices": [
+      {"text": "1", "explanation": "1 is the local derivative of an addition node with respect to either input. Multiplication by b scales the derivative by b."},
+      {"text": "a", "explanation": "a is ∂m/∂b. When differentiating with respect to a, the other input b is held constant."},
+      {"text": "b", "explanation": "Treat b as a constant: ∂(a×b)/∂a = b. A multiply node passes each input the other input as its local derivative."},
+      {"text": "a + b", "explanation": "a+b is not the partial derivative with respect to either input. For ∂m/∂a, only b remains."}
+    ], "correct": 2
+  },
+  {
+    "id": "A46", "number": 46, "part": "A", "topic": "Backpropagation", "adapted": false,
+    "prompt": "In the forward pass, a ReLU received z = −1.5. In the backward pass, a gradient of 0.8 arrives at its output. What gradient does it pass back to z?",
+    "choices": [
+      {"text": "0.8", "explanation": "ReLU passes the incoming gradient unchanged only when its input is positive. This input is negative, so the local derivative is 0."},
+      {"text": "−1.2", "explanation": "This multiplies by z itself. Backpropagation multiplies by ReLU's derivative, which is 0 at z = −1.5."},
+      {"text": "1.5", "explanation": "The gradient is not the magnitude of the input. A negative ReLU input blocks the backward signal."},
+      {"text": "0", "explanation": "At a strictly negative input, ReLU's derivative is 0. The gradient passed back is 0.8×0 = 0."}
+    ], "correct": 3
+  },
+  {
+    "id": "A47", "number": 47, "part": "A", "topic": "Backpropagation", "adapted": false,
+    "prompt": "The local gradient of a sigmoid node is p(1 − p), where p is its output. If p = 0.5, what is the local gradient?",
+    "choices": [
+      {"text": "0.25", "explanation": "Substitute p = 0.5: p(1−p) = 0.5×0.5 = 0.25. This is sigmoid's maximum local derivative."},
+      {"text": "0.5", "explanation": "0.5 is p itself. The derivative also multiplies by 1−p = 0.5, producing 0.25."},
+      {"text": "1", "explanation": "Adding p and 1−p would give 1, but the derivative multiplies them, giving 0.25."},
+      {"text": "0", "explanation": "Sigmoid's derivative approaches zero near saturated outputs 0 or 1. At p = 0.5 it equals 0.25."}
+    ], "correct": 0
+  },
+  {
+    "id": "A48", "number": 48, "part": "A", "topic": "Backpropagation", "adapted": false,
+    "prompt": "A small graph computes d = a + b and then e = d · c, with a = 1, b = 2, c = 4. What is ∂e/∂a?",
+    "choices": [
+      {"text": "1", "explanation": "1 is ∂d/∂a, but the full chain also includes ∂e/∂d = c = 4."},
+      {"text": "3", "explanation": "3 is the forward value d = a+b. It is also ∂e/∂c, not ∂e/∂a."},
+      {"text": "12", "explanation": "12 is the forward output e = (1+2)×4. The requested derivative measures how e changes when a changes."},
+      {"text": "4", "explanation": "By the chain rule, ∂e/∂a = (∂e/∂d)(∂d/∂a) = c×1 = 4."}
+    ], "correct": 3
+  },
+  {
+    "id": "A49", "number": 49, "part": "A", "topic": "Backpropagation", "adapted": false,
+    "prompt": "A hidden unit's ReLU is off (z < 0) for every training example. With plain gradient descent and no other update terms or gradient paths, what happens to its incoming weights?",
+    "choices": [
+      {"text": "They grow quickly", "explanation": "An inactive ReLU has derivative 0, so the data loss sends no gradient through this unit to drive rapid growth of its incoming weights."},
+      {"text": "They bounce back and forth", "explanation": "The inactive gate contributes zero loss gradient, not an alternating signal. Plain gradient descent therefore makes no update through this path."},
+      {"text": "They are reset to 0", "explanation": "A zero gradient means a zero plain-gradient-descent update. It leaves the existing weights unchanged rather than resetting their values."},
+      {"text": "They never change, because their gradients are always 0", "explanation": "Intended answer for plain gradient descent with no regularization or other gradient paths: ReLU′(z) = 0 blocks the loss gradient. Weight decay or existing momentum can still change weights despite a zero current data gradient."}
+    ], "correct": 3
+  },
+  {
+    "id": "A50", "number": 50, "part": "A", "topic": "Backpropagation", "adapted": false,
+    "prompt": "Backpropagation gives ∂L/∂w = −0.6 for a weight. The learning rate is η = 0.5. In the update w ← w − η · ∂L/∂w, what happens to w?",
+    "choices": [
+      {"text": "It goes down by 0.3", "explanation": "The gradient is negative, so subtracting η times it increases w: −0.5×(−0.6) = +0.3."},
+      {"text": "It goes up by 0.6", "explanation": "The direction is correct, but the learning rate scales the change to 0.5×0.6 = 0.3."},
+      {"text": "It goes up by 0.3", "explanation": "w_new = w − 0.5×(−0.6) = w + 0.3. Subtracting a negative gradient moves the weight upward."},
+      {"text": "It does not change", "explanation": "Both the learning rate and gradient are nonzero, so the update is nonzero: Δw = +0.3."}
+    ], "correct": 2
+  }
+]

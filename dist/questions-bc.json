@@ -1,0 +1,552 @@
+[
+  {
+    "id": "B1",
+    "number": 51,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "Which assignment of the three data splits keeps the final evaluation trustworthy?",
+    "choices": [
+      {
+        "text": "Train: learn weights. Validation: final report. Test: repeatedly tune until its score is best.",
+        "explanation": "Repeated tuning can overfit the test set. Use validation for model selection and reserve the test set for the final report."
+      },
+      {
+        "text": "Train: tune choices. Validation: learn weights. Test: choose the best learning rate.",
+        "explanation": "Training data is used to fit the weights. Choosing a learning rate using test results makes the test part of model selection and biases its final score."
+      },
+      {
+        "text": "Train: learn weights. Validation: tune choices. Test: evaluate the final model; tuning on it leaks information.",
+        "explanation": "Correct. Training fits parameters; validation guides model and hyperparameter choices. A held-out test estimates performance after those choices are finished."
+      },
+      {
+        "text": "Train, validation, and test all update the weights so every example contributes.",
+        "explanation": "Updating weights on validation or test examples removes their held-out role. You then lack an independent check of generalization."
+      }
+    ],
+    "correct": 2,
+    "adapted": true
+  },
+  {
+    "id": "B2",
+    "number": 52,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "Which loss pattern most clearly signals overfitting, and why?",
+    "choices": [
+      {
+        "text": "Training loss keeps falling while validation loss rises: training-specific details stop generalizing.",
+        "explanation": "Correct. The model improves on examples it trains on but worsens on held-out examples. A growing train–validation gap is a typical overfitting signal."
+      },
+      {
+        "text": "Training and validation loss are both high: the model memorized the training examples.",
+        "explanation": "High loss on both sets more often suggests underfitting or ineffective training. Overfitting means fitting training-specific detail that does not generalize."
+      },
+      {
+        "text": "Training and validation loss fall together: the model can no longer generalize.",
+        "explanation": "Falling validation loss means held-out predictions are improving. This pattern alone does not indicate overfitting."
+      },
+      {
+        "text": "Training loss rises while validation loss falls: the model is memorizing the training set.",
+        "explanation": "Memorization would normally reduce training loss. This opposite pattern does not provide the usual evidence of overfitting."
+      }
+    ],
+    "correct": 0,
+    "adapted": true
+  },
+  {
+    "id": "B3",
+    "number": 53,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "Why place a non-linear activation between linear layers? What happens without it?",
+    "choices": [
+      {
+        "text": "It limits every output to [0, 1]; without it, the network has no learnable parameters.",
+        "explanation": "ReLU is not bounded above, and linear layers still have learnable weights and biases. Probability constraints are a separate output-layer choice."
+      },
+      {
+        "text": "It makes every layer invertible; without it, gradient descent is impossible.",
+        "explanation": "ReLU is not invertible because all negative inputs map to zero. Linear models can still be trained with gradient descent."
+      },
+      {
+        "text": "It adds more weights; without it, deeper linear layers represent arbitrary curved boundaries.",
+        "explanation": "An activation such as ReLU adds no learned weights. Composing affine layers still gives an affine map and cannot by itself create curved boundaries."
+      },
+      {
+        "text": "It enables non-linear relationships; a stack of linear or affine layers otherwise collapses to one affine map.",
+        "explanation": "Correct. For example, W₂(W₁x + b₁) + b₂ = (W₂W₁)x + (W₂b₁ + b₂). Non-linear activations prevent that collapse."
+      }
+    ],
+    "correct": 3,
+    "adapted": true
+  },
+  {
+    "id": "B4",
+    "number": 54,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "In w ← w − η · ∂L/∂w, what do the gradient, subtraction, and η mean?",
+    "choices": [
+      {
+        "text": "The gradient is the loss value; subtraction makes it positive; η chooses the number of layers.",
+        "explanation": "The gradient is a derivative, not the loss itself. Subtraction moves against the local slope, and η is the learning rate."
+      },
+      {
+        "text": "The gradient gives local direction and sensitivity of loss; subtraction moves downhill; η scales the step.",
+        "explanation": "Correct. A small change obeys ΔL ≈ (∂L/∂w)Δw. Setting Δw = −η(∂L/∂w) gives a local decrease for a sufficiently small positive η."
+      },
+      {
+        "text": "The gradient gives local slope; subtraction climbs the loss; η changes the slope's sign.",
+        "explanation": "The gradient points toward local increase. Subtracting a positive multiple of it moves toward local decrease; η controls magnitude, not the gradient's sign."
+      },
+      {
+        "text": "The gradient gives the best weight; subtraction reaches it exactly; η chooses the batch size.",
+        "explanation": "A local derivative does not reveal the exact minimizing weight. One update need not reach a minimum; η scales the update."
+      }
+    ],
+    "correct": 1,
+    "adapted": true
+  },
+  {
+    "id": "B5",
+    "number": 55,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "How do a far-too-small and a far-too-large learning rate usually affect training?",
+    "choices": [
+      {
+        "text": "Too small: immediate divergence. Too large: guaranteed fast convergence.",
+        "explanation": "Small learning rates generally slow progress. Large rates do not guarantee convergence and can make updates unstable."
+      },
+      {
+        "text": "Too small: slow progress. Too large: overshooting, oscillation, or divergence.",
+        "explanation": "Correct. The update magnitude is η times the gradient. Tiny η makes tiny updates; excessive η can jump across a minimum or make loss blow up."
+      },
+      {
+        "text": "Too small: all gradients become zero. Too large: the model automatically adds layers.",
+        "explanation": "η scales the update after gradients are computed; it does not force gradients to zero or change the network architecture."
+      },
+      {
+        "text": "Too small and too large both have no effect because backpropagation chooses the step size.",
+        "explanation": "Backpropagation computes gradients. The optimizer uses η to turn those gradients into updates, so the learning rate directly affects training."
+      }
+    ],
+    "correct": 1,
+    "adapted": true
+  },
+  {
+    "id": "B6",
+    "number": 56,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "Which statement correctly defines logits and chooses sigmoid versus softmax?",
+    "choices": [
+      {
+        "text": "Logits are labels. Sigmoid normalizes many classes; softmax handles a single binary score.",
+        "explanation": "Logits are model scores before conversion to probabilities. A single sigmoid score is standard for binary classification; softmax normalizes a vector of class scores."
+      },
+      {
+        "text": "Logits must be positive. Sigmoid is for regression; softmax produces independent binary probabilities.",
+        "explanation": "Logits can be any real number. Softmax couples class probabilities through a shared denominator; independent binary outputs typically use separate sigmoids."
+      },
+      {
+        "text": "Logits already sum to 1. Sigmoid and softmax only pick the largest logit.",
+        "explanation": "Raw logits need not lie in [0, 1] or sum to 1. Sigmoid and softmax convert scores to probabilities rather than merely returning an argmax."
+      },
+      {
+        "text": "Logits are unrestricted raw scores. Sigmoid maps one binary score to (0, 1); softmax maps mutually exclusive class scores to probabilities summing to 1.",
+        "explanation": "Correct. Sigmoid uses 1/(1 + e⁻ᶻ). Softmax uses eᶻⁱ/Σⱼeᶻʲ, giving a probability distribution across mutually exclusive classes."
+      }
+    ],
+    "correct": 3,
+    "adapted": true
+  },
+  {
+    "id": "B7",
+    "number": 57,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "A dataset has 95 negative and 5 positive examples. Why can accuracy mislead, and what should you also check?",
+    "choices": [
+      {
+        "text": "An always-negative model has 95% accuracy but 0% positive recall; also inspect recall and precision.",
+        "explanation": "Correct. Accuracy is 95/100, while recall is 0/5. Class-specific measures reveal missed positives and false alarms; precision is undefined when no positives are predicted unless a convention is chosen."
+      },
+      {
+        "text": "An always-negative model has 95% accuracy and 95% recall; accuracy alone is enough.",
+        "explanation": "Recall is TP/(TP + FN) = 0/5 = 0%, not 95%. High accuracy can conceal complete failure on the minority positive class."
+      },
+      {
+        "text": "An always-negative model has 5% accuracy and 100% recall; check only training loss.",
+        "explanation": "It correctly predicts the 95 negatives, so accuracy is 95%. It finds none of the 5 positives, so positive-class recall is 0%."
+      },
+      {
+        "text": "An always-negative model has 0% accuracy but perfect precision; balance the classes after testing.",
+        "explanation": "The 95 true negatives count as correct predictions. With no positive predictions, precision has a zero denominator and is not automatically perfect."
+      }
+    ],
+    "correct": 0,
+    "adapted": true
+  },
+  {
+    "id": "B8",
+    "number": 58,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "Why train a classifier with cross-entropy but report accuracy?",
+    "choices": [
+      {
+        "text": "Loss and accuracy are identical, so reporting either always gives the same number.",
+        "explanation": "Cross-entropy uses predicted probabilities; accuracy counts correct labels. Predictions can have the same accuracy but different confidence and cross-entropy."
+      },
+      {
+        "text": "Accuracy provides smooth gradients; cross-entropy only counts correct labels.",
+        "explanation": "This reverses their roles. Accuracy is a discrete count after choosing classes; cross-entropy supplies a useful differentiable training objective."
+      },
+      {
+        "text": "Loss is the optimization objective; cross-entropy gives useful gradients from probabilities. Accuracy reports the understandable fraction of correct predictions.",
+        "explanation": "Correct. Accuracy changes only when a predicted class changes, so it offers little direct gradient signal. Cross-entropy rewards improving the probability of the correct class."
+      },
+      {
+        "text": "Cross-entropy measures only speed; accuracy chooses the learning rate automatically.",
+        "explanation": "Neither quantity measures training speed or automatically selects η. They assess prediction quality for different purposes."
+      }
+    ],
+    "correct": 2,
+    "adapted": true
+  },
+  {
+    "id": "B9",
+    "number": 59,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "How does backpropagation use a local gradient, including when one value feeds two later nodes?",
+    "choices": [
+      {
+        "text": "Multiply the incoming loss gradient by the node's local derivative; sum contributions from all outgoing paths at a shared value.",
+        "explanation": "Correct. For u → v, ∂L/∂u = (∂L/∂v)(∂v/∂u). If u affects v₁ and v₂, add both products: ∂L/∂u = (∂L/∂v₁)(∂v₁/∂u) + (∂L/∂v₂)(∂v₂/∂u)."
+      },
+      {
+        "text": "Add the incoming gradient to the local derivative; multiply the contributions of two outgoing paths.",
+        "explanation": "The chain rule multiplies along each path, not adds. Separate paths contribute additively, so multiplying branch contributions is also incorrect."
+      },
+      {
+        "text": "Use only the local derivative; at a branch, keep the largest arriving gradient.",
+        "explanation": "A local derivative must be weighted by how its output affects the loss. Every downstream path contributes, even if one gradient is smaller or negative."
+      },
+      {
+        "text": "Divide the incoming gradient by the local derivative; average the two path contributions.",
+        "explanation": "Backpropagation multiplies by the local derivative. Branch contributions are summed; averaging would incorrectly shrink the total derivative unless the graph itself includes an average."
+      }
+    ],
+    "correct": 0,
+    "adapted": true
+  },
+  {
+    "id": "B10",
+    "number": 60,
+    "part": "B",
+    "topic": "Concept review",
+    "prompt": "Which sequence correctly maps predict → measure → blame → adjust, including backpropagation and the learning rate?",
+    "choices": [
+      {
+        "text": "Predict: update weights. Measure: backpropagate. Blame: compute loss. Adjust: run the forward pass with η.",
+        "explanation": "Predictions require a forward pass before loss is measured. Backpropagation then computes gradients, and the optimizer finally uses η to update weights."
+      },
+      {
+        "text": "Predict: compute loss. Measure: forward pass. Blame: choose the data split. Adjust: backpropagation updates weights without η.",
+        "explanation": "The forward pass comes before loss computation. Backpropagation computes gradients; a separate optimizer step uses the learning rate to change parameters."
+      },
+      {
+        "text": "Predict: forward pass. Measure: compute accuracy. Blame: change weights using η. Adjust: compute gradients.",
+        "explanation": "The training objective is the loss, and gradients must be computed before parameter updates. η scales the adjustment, not the gradient computation."
+      },
+      {
+        "text": "Predict: forward pass. Measure: compute loss. Blame: backpropagate gradients. Adjust: optimizer updates parameters using η.",
+        "explanation": "Correct. Backpropagation is the blame step: it attributes sensitivity of the loss to parameters. The adjust step applies updates such as w ← w − η·∂L/∂w."
+      }
+    ],
+    "correct": 3,
+    "adapted": true
+  },
+  {
+    "id": "C1",
+    "number": 61,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "Compute z₁ and h₁. Is hidden unit 1 on or off?",
+    "choices": [
+      {
+        "text": "z₁ = 0, h₁ = 0; off",
+        "explanation": "This omits b₁ = 1. The weighted input is 2·1 + (−1)·2 = 0, then adding the bias gives z₁ = 1."
+      },
+      {
+        "text": "z₁ = 1, h₁ = 1; on",
+        "explanation": "Correct. z₁ = 2·1 + (−1)·2 + 1 = 1. ReLU(1) = 1, so this unit is on."
+      },
+      {
+        "text": "z₁ = −1, h₁ = 0; off",
+        "explanation": "The bias is +1, not −1. z₁ = 2·1 − 1·2 + 1 = 1, so the ReLU is on."
+      },
+      {
+        "text": "z₁ = 5, h₁ = 5; on",
+        "explanation": "w₁₂ is −1, so its contribution is −2, not +2. The correct sum is 2 − 2 + 1 = 1."
+      }
+    ],
+    "correct": 1,
+    "adapted": true
+  },
+  {
+    "id": "C2",
+    "number": 62,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "Compute z₂ and h₂. Is hidden unit 2 on or off?",
+    "choices": [
+      {
+        "text": "z₂ = −2, h₂ = 0; off",
+        "explanation": "Correct. z₂ = −1 − 2 + 1 = −2. ReLU(−2) = 0, so hidden unit 2 is off."
+      },
+      {
+        "text": "z₂ = 2, h₂ = 2; on",
+        "explanation": "Both incoming weights are −1. Their contributions are −1 and −2; adding b₂ = 1 gives −2, not +2."
+      },
+      {
+        "text": "z₂ = −3, h₂ = 0; off",
+        "explanation": "This omits the bias. z₂ = (−1)·1 + (−1)·2 + 1 = −2."
+      },
+      {
+        "text": "z₂ = −2, h₂ = −2; off",
+        "explanation": "The preactivation is −2, but ReLU clips negative values to zero. Thus h₂ = max(0, −2) = 0."
+      }
+    ],
+    "correct": 0,
+    "adapted": true
+  },
+  {
+    "id": "C3",
+    "number": 63,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "Using h₁ = 1 and h₂ = 0, compute the output logit s and probability p.",
+    "choices": [
+      {
+        "text": "s = −6, p = σ(−6)",
+        "explanation": "This feeds z₂ = −2 directly into the output. The output receives h₂ = ReLU(z₂) = 0, so s = 0."
+      },
+      {
+        "text": "s = 1, p = σ(1)",
+        "explanation": "This omits c = −1. Including the output bias gives s = 1 + 0 − 1 = 0 and p = 0.5."
+      },
+      {
+        "text": "s = 0, p = 0.5",
+        "explanation": "Correct. s = 1·1 + 3·0 + (−1) = 0, then p = σ(0) = 1/(1 + 1) = 0.5."
+      },
+      {
+        "text": "s = 0, p = 0",
+        "explanation": "The logit is zero, but sigmoid is not the identity function. σ(0) = 0.5, not zero."
+      }
+    ],
+    "correct": 2,
+    "adapted": true
+  },
+  {
+    "id": "C4",
+    "number": 64,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "With y = 0 and p = 0.5, what is the binary cross-entropy loss L?",
+    "choices": [
+      {
+        "text": "L = −ln 2 ≈ −0.693",
+        "explanation": "ln(0.5) = −ln 2, but the loss negates that logarithm: −ln(0.5) = +ln 2."
+      },
+      {
+        "text": "L = 0",
+        "explanation": "Zero logit does not mean zero loss. p = 0.5 leaves uncertainty about a label of zero and gives L = −ln(0.5)."
+      },
+      {
+        "text": "L = 0.25",
+        "explanation": "0.25 is the squared error (0.5 − 0)². This network uses binary cross-entropy, so L = −ln(0.5) ≈ 0.693."
+      },
+      {
+        "text": "L = ln 2 ≈ 0.693",
+        "explanation": "Correct. With y = 0, L = −ln(1 − p) = −ln(0.5) = ln 2 ≈ 0.693."
+      }
+    ],
+    "correct": 3,
+    "adapted": true
+  },
+  {
+    "id": "C5",
+    "number": 65,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "Compute ∂L/∂s = p − y. What is its sign, and which direction should s move to reduce loss?",
+    "choices": [
+      {
+        "text": "+0.5; positive; lower s so p moves toward the target 0.",
+        "explanation": "Correct. ∂L/∂s = 0.5. Moving downhill decreases s, and sigmoid is increasing, so p also decreases toward y = 0."
+      },
+      {
+        "text": "+0.5; positive; raise s because a positive gradient means loss falls as s rises.",
+        "explanation": "A positive derivative means loss increases as s rises. Gradient descent moves against that slope, so s should decrease."
+      },
+      {
+        "text": "−0.5; negative; raise s to reduce the probability of class 1.",
+        "explanation": "p − y = 0.5 − 0 = +0.5. Raising s raises sigmoid(s), which moves the class-1 probability away from the target y = 0."
+      },
+      {
+        "text": "0; neither sign; leave s unchanged because y is zero.",
+        "explanation": "A zero label does not imply zero gradient. The mismatch is p − y = 0.5, so reducing s can reduce the loss."
+      }
+    ],
+    "correct": 0,
+    "adapted": true
+  },
+  {
+    "id": "C6",
+    "number": 66,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "Given ∂L/∂s = 0.5, compute (∂L/∂v₁, ∂L/∂v₂, ∂L/∂c).",
+    "choices": [
+      {
+        "text": "(0.5, 1.5, −0.5)",
+        "explanation": "Weight gradients multiply their inputs h₁ and h₂, not their own values v₁ and v₂. A bias has input 1, so its gradient is +0.5, regardless of c = −1."
+      },
+      {
+        "text": "(1, 0, 1)",
+        "explanation": "These are the local derivatives ∂s/∂v₁, ∂s/∂v₂, and ∂s/∂c. Multiply each by the incoming gradient 0.5."
+      },
+      {
+        "text": "(0.5, 0, 0.5)",
+        "explanation": "Correct. ∂L/∂v₁ = 0.5·h₁ = 0.5; ∂L/∂v₂ = 0.5·h₂ = 0; ∂L/∂c = 0.5·1 = 0.5."
+      },
+      {
+        "text": "(0.5, −1, 0.5)",
+        "explanation": "The output weight v₂ multiplies h₂ = 0, not z₂ = −2. Its loss gradient is 0.5·0 = 0."
+      }
+    ],
+    "correct": 2,
+    "adapted": true
+  },
+  {
+    "id": "C7",
+    "number": 67,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "Before passing through ReLU, compute (∂L/∂h₁, ∂L/∂h₂).",
+    "choices": [
+      {
+        "text": "(0.5, 0)",
+        "explanation": "h₂ = 0 makes ∂L/∂v₂ zero, but ∂L/∂h₂ uses the weight v₂ = 3. Before the ReLU gate, that gradient is 1.5."
+      },
+      {
+        "text": "(0.5, 1.5)",
+        "explanation": "Correct. ∂L/∂h₁ = (∂L/∂s)v₁ = 0.5·1 = 0.5, and ∂L/∂h₂ = 0.5·3 = 1.5."
+      },
+      {
+        "text": "(1, 3)",
+        "explanation": "These are the local derivatives ∂s/∂h₁ and ∂s/∂h₂. The chain rule also multiplies by the incoming loss gradient 0.5."
+      },
+      {
+        "text": "(0.125, 0.375)",
+        "explanation": "This applies sigmoid′(0) = 0.25 a second time. The shortcut ∂L/∂s = p − y already includes the sigmoid and cross-entropy derivatives; multiply 0.5 by v₁ and v₂ only."
+      }
+    ],
+    "correct": 1,
+    "adapted": true
+  },
+  {
+    "id": "C8",
+    "number": 68,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "Pass (∂L/∂h₁, ∂L/∂h₂) = (0.5, 1.5) through the ReLU gates. Which gate is shut?",
+    "choices": [
+      {
+        "text": "(∂L/∂z₁, ∂L/∂z₂) = (0.5, 1.5); neither gate is shut.",
+        "explanation": "The second gate is shut because z₂ = −2 < 0. Its local ReLU derivative is zero, so it blocks the gradient 1.5."
+      },
+      {
+        "text": "(∂L/∂z₁, ∂L/∂z₂) = (0.5, −3); gate 2 multiplies by z₂.",
+        "explanation": "The local derivative of ReLU at a negative input is zero, not the input itself. Thus 1.5 is multiplied by 0, not by −2."
+      },
+      {
+        "text": "(∂L/∂z₁, ∂L/∂z₂) = (0, 1.5); gate 1 is shut because h₁ = 1.",
+        "explanation": "A positive preactivation opens a ReLU gate. z₁ = 1 passes its gradient, while z₂ = −2 blocks its gradient."
+      },
+      {
+        "text": "(∂L/∂z₁, ∂L/∂z₂) = (0.5, 0); gate 2 is shut because z₂ < 0.",
+        "explanation": "Correct. ReLU′(1) = 1 and ReLU′(−2) = 0. Therefore ∂L/∂z₁ = 0.5·1 = 0.5 and ∂L/∂z₂ = 1.5·0 = 0."
+      }
+    ],
+    "correct": 3,
+    "adapted": true
+  },
+  {
+    "id": "C9",
+    "number": 69,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "Why are ∂L/∂v₂ and ∂L/∂z₂ both zero, even though ∂L/∂h₂ = 1.5? Distinguish the two reasons.",
+    "choices": [
+      {
+        "text": "Both are zero because the output gradient ∂L/∂s is zero.",
+        "explanation": "The output gradient is 0.5, not zero. ∂L/∂v₂ vanishes because h₂ = 0; ∂L/∂z₂ vanishes because ReLU′(z₂) = 0."
+      },
+      {
+        "text": "∂L/∂v₂ is zero because v₂ = 0; ∂L/∂z₂ is zero because ∂L/∂h₂ = 0.",
+        "explanation": "v₂ is 3 and ∂L/∂h₂ is 1.5. The zero activation h₂ and the shut ReLU gate are the separate causes."
+      },
+      {
+        "text": "∂L/∂v₂ multiplies the zero input h₂; ∂L/∂z₂ multiplies the zero derivative of ReLU at z₂ < 0.",
+        "explanation": "Correct. ∂L/∂v₂ = 0.5·h₂ = 0.5·0 = 0. Separately, ∂L/∂z₂ = 1.5·ReLU′(−2) = 1.5·0 = 0."
+      },
+      {
+        "text": "∂L/∂v₂ is zero because the label is zero; ∂L/∂z₂ is zero because all negative gradients are clipped.",
+        "explanation": "A zero label still produces ∂L/∂s = 0.5. ReLU gates gradients according to the forward preactivation, not according to the arriving gradient's sign."
+      }
+    ],
+    "correct": 2,
+    "adapted": true
+  },
+  {
+    "id": "C10",
+    "number": 70,
+    "part": "C",
+    "topic": "Backprop lab",
+    "context": "network",
+    "prompt": "With plain gradient descent, a positive learning rate, and this example only, which hidden unit's incoming parameters change next?",
+    "choices": [
+      {
+        "text": "Only unit 2's (w₂₁, w₂₂, b₂), because its output weight v₂ is larger.",
+        "explanation": "The shut second ReLU makes ∂L/∂z₂ = 0. A larger output weight does not overcome multiplication by that zero gate derivative."
+      },
+      {
+        "text": "Only unit 1's (w₁₁, w₁₂, b₁): its gradients are (0.5, 1, 0.5); unit 2's are all zero.",
+        "explanation": "Correct. Unit 1 gives (∂L/∂z₁)(x₁, x₂, 1) = 0.5·(1, 2, 1). Unit 2 gives 0·(1, 2, 1) = (0, 0, 0), so its incoming parameters do not change in this step."
+      },
+      {
+        "text": "Neither unit's incoming parameters, because only output-layer weights can learn from a binary loss.",
+        "explanation": "Backpropagation also trains earlier layers. Unit 1 has ∂L/∂z₁ = 0.5, yielding nonzero gradients for its two weights and bias."
+      },
+      {
+        "text": "Both units' incoming parameters, because both receive nonzero ∂L/∂h.",
+        "explanation": "The incoming gradient must pass each ReLU. Unit 2 receives 1.5 at h₂, but its gate blocks it, leaving all three incoming parameter gradients zero."
+      }
+    ],
+    "correct": 1,
+    "adapted": true
+  }
+]

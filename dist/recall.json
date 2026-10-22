@@ -1,0 +1,352 @@
+{
+  "A1": {
+    "prompt": "In classical programming, a person writes the rules. In supervised machine learning, what does the person supply instead?",
+    "answer": "Examples of inputs paired with their correct outputs. Training uses these labeled examples to learn the mapping, rather than receiving all the decision rules explicitly.",
+    "checklist": ["Inputs and correct outputs are supplied together.", "The model learns the mapping from examples."]
+  },
+  "A2": {
+    "prompt": "A dataset has one row per house: square footage, number of bedrooms, and sale price. The model must predict the sale price. What is the sale price called?",
+    "answer": "The label, or target. Square footage and number of bedrooms are the input features; sale price is the output to predict.",
+    "checklist": ["Identify sale price as the label or target.", "Distinguish the target from the input features."]
+  },
+  "A3": {
+    "prompt": "A model scores 99% on the training data and 62% on the validation data. What is the most likely problem?",
+    "answer": "Overfitting: the model has fit training-specific patterns that do not generalize well. The large gap between training and validation performance is the warning sign.",
+    "checklist": ["Name overfitting.", "Explain the training–validation performance gap."]
+  },
+  "A4": {
+    "prompt": "What is the test set used for, and when should you evaluate on it?",
+    "answer": "Reserve the test set for a final evaluation after training and model selection are finished. It estimates performance on held-out data and must not guide weight updates or hyperparameter tuning.",
+    "checklist": ["Use held-out test data for final evaluation.", "Keep test results out of training and model selection."]
+  },
+  "A5": {
+    "prompt": "What does a loss function do?",
+    "answer": "It compares model predictions with the correct targets and returns a numerical training objective. Lower loss means the predictions better satisfy that objective.",
+    "checklist": ["Compare predictions with targets.", "Produce a scalar objective that training minimizes."]
+  },
+  "A6": {
+    "prompt": "What is one epoch?",
+    "answer": "One complete pass over the training dataset. With mini-batches, an epoch usually includes many optimizer steps.",
+    "checklist": ["A full pass over the training set.", "Distinguish an epoch from one update or one example."]
+  },
+  "A7": {
+    "prompt": "A neuron has weights w = [1, −2, 3] and bias b = 2. For the input x = [2, 1, 1], what is z = w · x + b?",
+    "answer": "z = 1·2 + (−2)·1 + 3·1 + 2 = 2 − 2 + 3 + 2 = 5.",
+    "checklist": ["Keep the negative sign on the second weight.", "Add the bias to obtain z = 5."]
+  },
+  "A8": {
+    "prompt": "ReLU(z) = max(0, z). What are ReLU(−3) and ReLU(2)?",
+    "answer": "ReLU(−3) = 0 and ReLU(2) = 2. ReLU clips negative values to zero and leaves positive values unchanged.",
+    "checklist": ["ReLU(−3) = 0.", "ReLU(2) = 2."]
+  },
+  "A9": {
+    "prompt": "Why does a neural network need a non-linear activation, such as ReLU, between its linear layers?",
+    "answer": "Without nonlinear activations, a stack of linear layers collapses to one linear map; including biases gives one affine map. Nonlinear activations allow depth to represent nonlinear relationships.",
+    "checklist": ["Composed linear layers are still linear, or affine with biases.", "Nonlinearity increases what the network can represent."]
+  },
+  "A10": {
+    "prompt": "A fully connected network has layer sizes 3–4–1. Use the rule \"(inputs × outputs) weights, plus one bias per output\" for each layer. How many learnable parameters does it have?",
+    "answer": "The first layer has 3·4 + 4 = 16 parameters. The output layer has 4·1 + 1 = 5, so the total is 21.",
+    "checklist": ["Count 12 weights and 4 biases in the first layer.", "Count 4 weights and 1 bias in the output layer.", "Total 21 parameters."]
+  },
+  "A11": {
+    "prompt": "A model must say which one of 5 animal types appears in a photo. What should its output layer and loss look like?",
+    "answer": "Use five output logits, one per class, with softmax to obtain class probabilities and cross-entropy loss for training. In PyTorch, pass the raw logits directly to CrossEntropyLoss because it includes log-softmax internally.",
+    "checklist": ["Five output scores for five mutually exclusive classes.", "Softmax probabilities and cross-entropy loss.", "Do not apply softmax before PyTorch CrossEntropyLoss."]
+  },
+  "A12": {
+    "prompt": "What is a hyperparameter? Give one example and distinguish it from a learned parameter.",
+    "answer": "A hyperparameter is a setting chosen to configure the model or training, such as the learning rate. Weights and biases are learned parameters that training updates.",
+    "checklist": ["A hyperparameter is chosen as a configuration setting.", "Give learning rate as an example.", "Distinguish it from learned weights and biases."]
+  },
+  "A13": {
+    "prompt": "What does backpropagation do?",
+    "answer": "Backpropagation applies the chain rule to compute the loss gradient for each parameter. A separate optimizer step uses those gradients to update the parameters.",
+    "checklist": ["Compute parameter gradients using the chain rule.", "Distinguish gradient computation from the optimizer update."]
+  },
+  "A14": {
+    "prompt": "A model predicts [3, 5] for two examples whose true labels are [1, 5]. What is the MSE?",
+    "answer": "MSE = ((3 − 1)² + (5 − 5)²)/2 = (4 + 0)/2 = 2.",
+    "checklist": ["Square the errors to obtain 4 and 0.", "Average over both examples to obtain 2."]
+  },
+  "A15": {
+    "prompt": "What does this code print, and why?",
+    "answer": "torch.Size([5, 3]). torch.zeros(5, 3) creates a two-dimensional tensor with 5 rows and 3 columns.",
+    "checklist": ["Print torch.Size([5, 3]).", "Keep both dimensions in their original order."]
+  },
+  "A16": {
+    "prompt": "What does this code print, and why?",
+    "answer": "tensor(9.). The reshaped rows are [0, 1, 2, 3], [4, 5, 6, 7], and [8, 9, 10, 11]; zero-based index [2, 1] selects the third row's second value.",
+    "checklist": ["Use zero-based indexing.", "Select scalar 9 from row 2, column 1."]
+  },
+  "A17": {
+    "prompt": "x has shape (10, 4). What are the shapes of x[3] and x[3:4]?",
+    "answer": "x[3] has shape (4,), while x[3:4] has shape (1, 4). Integer indexing removes the selected row dimension; slicing preserves it.",
+    "checklist": ["x[3] → (4,).", "x[3:4] → (1, 4).", "Explain integer indexing versus slicing."]
+  },
+  "A18": {
+    "prompt": "X has shape (6, 3) and W has shape (3, 2). What is the shape of X @ W?",
+    "answer": "(6, 2). The inner dimensions 3 match and are summed over; the result keeps the 6 rows of X and 2 columns of W.",
+    "checklist": ["Check the matching inner dimensions.", "Keep the outer dimensions to obtain (6, 2)."]
+  },
+  "A19": {
+    "prompt": "What shape condition must hold for a two-dimensional matrix product? Apply it to (2, 3) @ (2, 3): is this product valid?",
+    "answer": "The left matrix's column count must equal the right matrix's row count: (m, n) @ (n, p) → (m, p). Here the inner dimensions are 3 and 2, so (2, 3) @ (2, 3) fails with a shape error.",
+    "checklist": ["Require matching inner dimensions.", "Compare 3 with 2.", "Conclude that this matrix product is invalid."]
+  },
+  "A20": {
+    "prompt": "What is torch.tensor([1., 2., 3.]) @ torch.tensor([2., 0., 1.])?",
+    "answer": "tensor(5.). For two one-dimensional tensors, @ computes the dot product: 1·2 + 2·0 + 3·1 = 5.",
+    "checklist": ["Multiply corresponding entries and sum.", "Return a scalar tensor with value 5."]
+  },
+  "A21": {
+    "prompt": "R = torch.tensor([[1, 2], [3, 4]]). What is R.sum(dim=0)?",
+    "answer": "tensor([4, 6]). Summing over dimension 0 collapses the row dimension: [1 + 3, 2 + 4].",
+    "checklist": ["Sum down the rows, one result per column.", "Obtain [4, 6]."]
+  },
+  "A22": {
+    "prompt": "X = torch.tensor([[1., 2.], [3., 4.]]) and w = torch.tensor([1., 1.]). What is X @ w?",
+    "answer": "tensor([3., 7.]). Take each row's dot product with w: [1·1 + 2·1, 3·1 + 4·1] = [3, 7].",
+    "checklist": ["Compute one dot product per row.", "Return a length-2 tensor [3., 7.]."]
+  },
+  "A23": {
+    "prompt": "A derivative df/dw, evaluated at a point, tells you what two things about a small increase in w?",
+    "answer": "Its sign tells whether f locally increases or decreases as w increases, and its magnitude tells how fast f changes. For small Δw, Δf ≈ (df/dw)·Δw.",
+    "checklist": ["Sign gives the local direction of change.", "Magnitude gives the local rate of change."]
+  },
+  "A24": {
+    "prompt": "For f(w) = w², gradient descent starts at w = 2 with learning rate η = 0.25. Using w ← w − η · df/dw, what is w after one step?",
+    "answer": "df/dw = 2w = 4 at w = 2. The updated value is w = 2 − 0.25·4 = 1.",
+    "checklist": ["Evaluate the derivative as 4.", "Subtract the step 1 to obtain w = 1."]
+  },
+  "A25": {
+    "prompt": "At the current value of w, dL/dw = +3. Which way does gradient descent move w?",
+    "answer": "Toward smaller w, assuming a positive learning rate. The update subtracts η·3 because a positive derivative means a local increase in w increases the loss.",
+    "checklist": ["Move w downward.", "Explain subtraction of a positive gradient."]
+  },
+  "A26": {
+    "prompt": "For f(w, b) = 3w² + wb + 5b, what is ∂f/∂w?",
+    "answer": "∂f/∂w = 6w + b. Treat b as constant: the three terms differentiate to 6w, b, and 0.",
+    "checklist": ["Hold b constant.", "Obtain 6w + b."]
+  },
+  "A27": {
+    "prompt": "What usually happens if the learning rate is far too large?",
+    "answer": "Updates can overshoot useful parameter values, causing the loss to oscillate or diverge. Extreme numerical growth can produce infinities or NaNs.",
+    "checklist": ["Explain overshooting from oversized updates.", "Mention oscillation or divergence."]
+  },
+  "A28": {
+    "prompt": "With a fixed learning rate, gradient descent can take smaller and smaller steps as it nears a smooth minimum. Why?",
+    "answer": "The update magnitude is η times the gradient magnitude. Near a smooth stationary minimum, the gradient approaches zero, so the steps shrink even though η stays fixed.",
+    "checklist": ["Step magnitude is proportional to the gradient magnitude.", "The gradient approaches zero near a smooth minimum."]
+  },
+  "A29": {
+    "prompt": "Is predicting tomorrow's high temperature a regression or classification problem? Explain the distinction.",
+    "answer": "It is regression because the target is a numerical quantity. Classification predicts membership in discrete categories, such as spam versus not spam.",
+    "checklist": ["Identify temperature prediction as regression.", "Distinguish numerical targets from discrete class labels."]
+  },
+  "A30": {
+    "prompt": "What is a logit?",
+    "answer": "A logit is a raw model score before sigmoid or softmax converts scores into probabilities. It can be any real number and is not itself constrained to [0, 1].",
+    "checklist": ["Raw score before probability conversion.", "Can be negative or positive without a probability bound."]
+  },
+  "A31": {
+    "prompt": "The sigmoid function is σ(z) = 1 / (1 + e^(−z)). What is σ(0)?",
+    "answer": "σ(0) = 1/(1 + e⁰) = 1/(1 + 1) = 0.5.",
+    "checklist": ["Use e⁰ = 1.", "Obtain 0.5."]
+  },
+  "A32": {
+    "prompt": "A binary classifier predicts class 1 when σ(z) > 0.5. For one example its logit is z = −2. What does it predict?",
+    "answer": "Class 0. Sigmoid is increasing and σ(0) = 0.5, so z = −2 gives a probability below 0.5.",
+    "checklist": ["Predict class 0.", "Explain that a negative logit gives sigmoid below 0.5."]
+  },
+  "A33": {
+    "prompt": "Softmax is applied to the logits [1.0, 1.0, 1.0]. What are the three probabilities?",
+    "answer": "[1/3, 1/3, 1/3]. Each numerator is e¹ and the denominator is 3e¹, so equal logits receive equal probabilities that sum to one.",
+    "checklist": ["All three probabilities are equal.", "Normalize to [1/3, 1/3, 1/3]."]
+  },
+  "A34": {
+    "prompt": "Cross-entropy loss for one example is −log(p), where p is the probability given to the correct class. Among p = 0.95, 0.50, 0.02, and 0.30, which gives the largest loss, and why?",
+    "answer": "p = 0.02 gives the largest loss. −log(p) gets larger as the probability assigned to the correct class gets smaller.",
+    "checklist": ["Choose the smallest correct-class probability, 0.02.", "Explain the inverse relationship between p and −log(p)."]
+  },
+  "A35": {
+    "prompt": "A disease-screening program prioritizes catching actual disease cases (the positive class). Which mistake does it aim to avoid, and which metric measures how often it succeeds?",
+    "answer": "In this screening setting, the intended concern is a false negative: missing someone who has the disease. Recall = TP/(TP + FN) measures the fraction of actual positive cases detected.",
+    "checklist": ["Identify missed disease as a false negative.", "Name recall and its denominator, all actual positives."]
+  },
+  "A36": {
+    "prompt": "What is the spam filter's accuracy?",
+    "answer": "Accuracy = (TP + TN)/total = (8 + 82)/100 = 0.90, or 90%.",
+    "checklist": ["Count both true positives and true negatives as correct.", "Divide 90 by all 100 emails."]
+  },
+  "A37": {
+    "prompt": "What is the spam filter's precision?",
+    "answer": "Precision = TP/(TP + FP) = 8/(8 + 8) = 0.50, or 50%. Of the emails predicted spam, half actually are spam.",
+    "checklist": ["Use predicted positives in the denominator.", "Compute 8/16 = 0.50."]
+  },
+  "A38": {
+    "prompt": "What is the spam filter's recall?",
+    "answer": "Recall = TP/(TP + FN) = 8/(8 + 2) = 0.80, or 80%. It catches 8 of the 10 actual spam emails.",
+    "checklist": ["Use actual positives in the denominator.", "Compute 8/10 = 0.80."]
+  },
+  "A39": {
+    "prompt": "A lazy model labels every email \"not spam.\" On the same 100 emails, what are its accuracy and recall?",
+    "answer": "Accuracy is 90/100 = 0.90 because it correctly labels all 90 non-spam emails. Spam recall is 0/10 = 0 because it catches none of the 10 spam emails.",
+    "checklist": ["Accuracy = 90%.", "Positive-class recall = 0%.", "Use the lazy model's predictions, not the original filter's matrix counts."]
+  },
+  "A40": {
+    "prompt": "For one training example the activation is a = 0.9 and the true label is y = 1. Using dz = a − y, what is dz, and which way should training move z?",
+    "answer": "dz = 0.9 − 1 = −0.1. Gradient descent should push z upward, raising the sigmoid probability toward the target 1.",
+    "checklist": ["Compute dz = −0.1.", "Move z up to increase the predicted positive probability."]
+  },
+  "A41": {
+    "prompt": "For one example, x = [2, 0, −1] and dz = 0.5. Using dwⱼ = xⱼ · dz, what is dw?",
+    "answer": "dw = [2·0.5, 0·0.5, (−1)·0.5] = [1, 0, −0.5].",
+    "checklist": ["Multiply every input by the shared dz.", "Preserve zero and the negative sign to obtain [1, 0, −0.5]."]
+  },
+  "A42": {
+    "prompt": "A weight is w = 1.0, its gradient is dw = 0.4, and the learning rate is η = 0.5. What is w after the update w ← w − η · dw?",
+    "answer": "w = 1.0 − 0.5·0.4 = 1.0 − 0.2 = 0.8.",
+    "checklist": ["Compute update size 0.2.", "Subtract it to obtain w = 0.8."]
+  },
+  "A43": {
+    "prompt": "A bias works like a weight whose input is always 1. For one example, dz = −0.3. What is db?",
+    "answer": "db = dz·1 = −0.3. The bias gradient equals the preactivation gradient for this one example.",
+    "checklist": ["Use the constant bias input 1.", "Keep the sign: db = −0.3."]
+  },
+  "A44": {
+    "prompt": "In the backward pass, a node receives a gradient of −2 from its right. Its local gradient is 3. What gradient does it pass on to its left?",
+    "answer": "−2·3 = −6. The chain rule multiplies the arriving loss gradient by the node's local derivative.",
+    "checklist": ["Multiply, rather than add, the gradients.", "Return −6."]
+  },
+  "A45": {
+    "prompt": "A multiply node computes m = a · b. What is its local gradient ∂m/∂a?",
+    "answer": "∂m/∂a = b. Treat b as constant when differentiating with respect to a.",
+    "checklist": ["Hold the other input b constant.", "Return b."]
+  },
+  "A46": {
+    "prompt": "In the forward pass, a ReLU received z = −1.5. In the backward pass, a gradient of 0.8 arrives at its output. What gradient does it pass back to z?",
+    "answer": "Zero. Since z < 0, ReLU's local derivative is 0, so the outgoing gradient is 0.8·0 = 0.",
+    "checklist": ["Use the forward input's sign to choose the ReLU derivative.", "Block the gradient: 0.8·0 = 0."]
+  },
+  "A47": {
+    "prompt": "The local gradient of a sigmoid node is p(1 − p), where p is its output. If p = 0.5, what is the local gradient?",
+    "answer": "p(1 − p) = 0.5·(1 − 0.5) = 0.25.",
+    "checklist": ["Substitute p = 0.5 in both factors.", "Obtain 0.25."]
+  },
+  "A48": {
+    "prompt": "A small graph computes d = a + b and then e = d · c, with a = 1, b = 2, c = 4. What is ∂e/∂a?",
+    "answer": "∂e/∂a = (∂e/∂d)(∂d/∂a) = c·1 = 4. The sum passes the gradient unchanged, and the multiply node contributes the other input c.",
+    "checklist": ["Use ∂d/∂a = 1 and ∂e/∂d = c.", "Multiply to obtain 4."]
+  },
+  "A49": {
+    "prompt": "A hidden unit's ReLU is off (z < 0) for every training example. With plain gradient descent and no other update terms or gradient paths, what happens to its incoming weights?",
+    "answer": "Their loss gradients are always zero because the ReLU gate blocks backpropagation. Under plain gradient descent with no additional update terms, those incoming weights do not change.",
+    "checklist": ["The inactive ReLU has local derivative 0.", "Zero incoming-weight gradients give no plain gradient-descent update."]
+  },
+  "A50": {
+    "prompt": "Backpropagation gives ∂L/∂w = −0.6 for a weight. The learning rate is η = 0.5. In the update w ← w − η · ∂L/∂w, what happens to w?",
+    "answer": "w increases by 0.3: w_new = w − 0.5·(−0.6) = w + 0.3. Subtracting a negative gradient moves the weight upward.",
+    "checklist": ["Compute η·gradient = −0.3.", "Subtract the negative value, increasing w by 0.3."]
+  },
+  "B1": {
+    "prompt": "Name the three data splits (training, validation, test). Say what each one is used for, and explain why you must not tune the model using the test set.",
+    "answer": "The training set is used to compute loss gradients and fit the weights. The validation set guides model selection and hyperparameter choices, while the test set provides a final held-out performance estimate. Tuning from test results leaks information into model selection and makes that estimate overly optimistic.",
+    "checklist": ["Training fits model parameters.", "Validation uses held-out performance to guide model or training choices, such as hyperparameter tuning or early stopping.", "Test evaluates the final chosen model.", "Explain why test-set tuning invalidates an independent estimate."]
+  },
+  "B2": {
+    "prompt": "What is overfitting? Explain how you can spot it by comparing the training loss and the validation loss over the epochs.",
+    "answer": "Overfitting occurs when a model learns training-specific patterns or noise that do not generalize to unseen examples. A common sign is that training loss keeps falling while validation loss stops improving and begins rising. The growing gap suggests that more fitting to the training data is hurting generalization.",
+    "checklist": ["Define poor generalization from fitting training-specific patterns.", "Training loss continues to improve.", "Validation loss stalls or rises, creating a growing gap."]
+  },
+  "B3": {
+    "prompt": "Why does a neural network need a non-linear activation function such as ReLU? What happens if you stack several linear layers with nothing between them?",
+    "answer": "Nonlinear activations let a network model nonlinear relationships. Without them, composing several linear layers is equivalent to one linear map; with biases, it is one affine map. Extra depth alone then does not add nonlinear expressive power.",
+    "checklist": ["Nonlinear activations enable nonlinear relationships.", "A stack without activations collapses to one linear or affine map, so depth alone adds no nonlinear expressive power."]
+  },
+  "B4": {
+    "prompt": "In the update rule w ← w − η · ∂L/∂w, what does the gradient ∂L/∂w tell you? Why do we subtract it instead of adding it? What does η control?",
+    "answer": "The gradient gives the direction and local rate at which the loss changes as w increases. We subtract it to move locally downhill: a positive gradient reduces w, while a negative gradient increases w. The positive learning rate η scales the size of that update.",
+    "checklist": ["Gradient gives signed local sensitivity of loss to w.", "Subtracting moves opposite the direction of increasing loss.", "η controls update size."]
+  },
+  "B5": {
+    "prompt": "Describe what happens to training when the learning rate is too small, and what happens when it is too large.",
+    "answer": "A very small learning rate makes tiny updates, so training progresses slowly and may make little progress within the available epochs. A very large learning rate can overshoot useful values, causing oscillation or divergence. Severe divergence may produce infinities or NaNs.",
+    "checklist": ["A too-small learning rate slows training or makes little progress.", "A too-large learning rate can cause overshooting, oscillation, or divergence; any one of these effects is sufficient."]
+  },
+  "B6": {
+    "prompt": "What is a logit? Explain how sigmoid and softmax turn logits into probabilities, and say when you would use each one.",
+    "answer": "A logit is an unrestricted raw score before conversion to a probability. Sigmoid, σ(z) = 1/(1 + e^(−z)), maps one score into (0, 1) for binary classification. Softmax maps a vector of class scores to positive probabilities that sum to one, using pᵢ = e^(zᵢ)/Σⱼe^(zⱼ), for mutually exclusive classes.",
+    "checklist": ["Logits are raw scores and may be any real number.", "Sigmoid converts a binary score to a probability.", "Softmax normalizes mutually exclusive class scores to sum to one."]
+  },
+  "B7": {
+    "prompt": "Why can accuracy be misleading when one class is much more common than the other? Give a short example, and name a measure you should also check.",
+    "answer": "Accuracy can look high simply because a model predicts the majority class. With 95 negative and 5 positive examples, predicting every example negative gives 95% accuracy but 0% positive-class recall. Check recall to measure missed positives and precision to assess predicted positives; inspect the confusion matrix as well.",
+    "checklist": ["Explain how the majority class dominates accuracy.", "Give a valid example showing high accuracy despite poor minority-class performance; numerical counts are optional.", "Name an appropriate additional measure, such as minority-class recall, precision, F1, or balanced accuracy; a definition is not required."]
+  },
+  "B8": {
+    "prompt": "What is the difference between the loss and a metric? Why do we train a classifier with cross-entropy but report its accuracy?",
+    "answer": "The loss is the objective optimized during training; a metric reports performance in a form useful for evaluation. Cross-entropy uses predicted probabilities and provides gradients that reward assigning more probability to the correct class. Accuracy reports the understandable fraction of correct class predictions, but its hard decisions are piecewise constant and do not provide useful gradients for gradient descent.",
+    "checklist": ["Loss is optimized; a metric evaluates performance.", "Cross-entropy provides probability-sensitive gradients.", "Accuracy is the fraction classified correctly.", "Hard accuracy decisions do not give useful training gradients."]
+  },
+  "B9": {
+    "prompt": "In backpropagation, what is a local gradient, and how is it combined with the gradient arriving from the right? What do you do when one value is used by two later nodes?",
+    "answer": "A local gradient is the derivative of a node's output with respect to one of its inputs. Multiply it by the arriving loss gradient using the chain rule: ∂L/∂u = (∂L/∂v)(∂v/∂u). If one value feeds two later nodes, add the gradient contributions from both paths.",
+    "checklist": ["Define the local derivative of output with respect to input.", "Multiply along a path using the chain rule.", "Sum contributions where downstream paths branch."]
+  },
+  "B10": {
+    "prompt": "Describe the four steps of the learning loop: predict, measure, blame, adjust. Which step is backpropagation, and which step uses the learning rate?",
+    "answer": "Predict runs a forward pass to produce outputs, and measure computes their loss against the targets. Blame is backpropagation, which computes how each parameter affects the loss. Adjust is the optimizer update, such as w ← w − η·∂L/∂w, where the learning rate η controls the step size.",
+    "checklist": ["Predict: forward pass.", "Measure: compute loss.", "Blame: backpropagate gradients.", "Adjust: update parameters using the learning rate."]
+  },
+  "C1": {
+    "prompt": "Compute z1 and h1. Is hidden unit 1 on or off?",
+    "answer": "z₁ = w₁₁x₁ + w₁₂x₂ + b₁ = 2·1 + (−1)·2 + 1 = 1. Thus h₁ = ReLU(1) = 1, and hidden unit 1 is on.",
+    "checklist": ["Include the bias: z₁ = 2 − 2 + 1 = 1.", "h₁ = 1 and the ReLU is on."]
+  },
+  "C2": {
+    "prompt": "Compute z2 and h2. Is hidden unit 2 on or off?",
+    "answer": "z₂ = w₂₁x₁ + w₂₂x₂ + b₂ = (−1)·1 + (−1)·2 + 1 = −2. Thus h₂ = ReLU(−2) = 0, and hidden unit 2 is off.",
+    "checklist": ["Include the bias: z₂ = −1 − 2 + 1 = −2.", "h₂ = 0 and the ReLU is off."]
+  },
+  "C3": {
+    "prompt": "Compute s and p. (Hint: σ(0) = 0.5.)",
+    "answer": "s = v₁h₁ + v₂h₂ + c = 1·1 + 3·0 − 1 = 0. Therefore p = σ(0) = 1/(1 + 1) = 0.5.",
+    "checklist": ["Use h₁ = 1 and h₂ = 0, not the preactivations.", "Include c = −1 to obtain s = 0.", "p = 0.5."]
+  },
+  "C4": {
+    "prompt": "Compute the loss L. Remember that y = 0.",
+    "answer": "With y = 0, binary cross-entropy becomes L = −log(1 − p). Substituting p = 0.5 gives L = −log(0.5) = ln 2 ≈ 0.693.",
+    "checklist": ["Use the negative-class term −log(1 − p).", "Obtain positive ln 2, approximately 0.693."]
+  },
+  "C5": {
+    "prompt": "Use the shortcut to compute ∂L/∂s. Is it positive or negative? Should s go up or down to lower the loss, and why does that make sense when y = 0?",
+    "answer": "∂L/∂s = p − y = 0.5 − 0 = +0.5, so it is positive. Decreasing s moves locally downhill and lowers σ(s), reducing the predicted probability of class 1 toward the true label 0.",
+    "checklist": ["Compute positive gradient +0.5.", "Move s downward to reduce loss.", "Explain that lower s means a lower class-1 probability, matching y = 0."]
+  },
+  "C6": {
+    "prompt": "Compute ∂L/∂v1, ∂L/∂v2 and ∂L/∂c. (Each weight's gradient is the gradient arriving × the input it multiplies. The bias multiplies a constant 1.)",
+    "answer": "∂L/∂v₁ = (∂L/∂s)h₁ = 0.5·1 = 0.5, and ∂L/∂v₂ = (∂L/∂s)h₂ = 0.5·0 = 0. The bias multiplies 1, so ∂L/∂c = 0.5·1 = 0.5.",
+    "checklist": ["∂L/∂v₁ = 0.5.", "∂L/∂v₂ = 0 because h₂ = 0.", "∂L/∂c = 0.5, independent of the bias's current value."]
+  },
+  "C7": {
+    "prompt": "Compute ∂L/∂h1 and ∂L/∂h2.",
+    "answer": "∂L/∂h₁ = (∂L/∂s)v₁ = 0.5·1 = 0.5. Likewise ∂L/∂h₂ = (∂L/∂s)v₂ = 0.5·3 = 1.5; this is before passing through the ReLU gate.",
+    "checklist": ["Multiply by output weights, not hidden activations.", "∂L/∂h₁ = 0.5 and ∂L/∂h₂ = 1.5."]
+  },
+  "C8": {
+    "prompt": "Pass both through the ReLU gates to get ∂L/∂z1 and ∂L/∂z2. Which gate is shut, and why?",
+    "answer": "Since z₁ = 1 > 0, ReLU′(z₁) = 1, so ∂L/∂z₁ = 0.5·1 = 0.5. Since z₂ = −2 < 0, ReLU′(z₂) = 0, so ∂L/∂z₂ = 1.5·0 = 0; gate 2 is shut because its forward preactivation is negative.",
+    "checklist": ["Gate 1 passes its gradient: ∂L/∂z₁ = 0.5.", "Gate 2 blocks its gradient: ∂L/∂z₂ = 0.", "Choose each gate from the sign of its forward preactivation."]
+  },
+  "C9": {
+    "prompt": "∂L/∂v2 = 0. Also, ∂L/∂z2 = 0 even though ∂L/∂h2 = 1.5 is not zero. These two zeros happen for different reasons. Explain each reason in one sentence.",
+    "answer": "∂L/∂v₂ = 0 because its local derivative is the zero activation h₂, giving 0.5·h₂ = 0. ∂L/∂z₂ = 0 because the negative preactivation z₂ closes the ReLU gate, whose zero local derivative blocks the nonzero incoming gradient 1.5.",
+    "checklist": ["The output-weight gradient is zero because its input h₂ is zero.", "The preactivation gradient is zero because ReLU′(z₂) is zero.", "Distinguish the two local derivatives despite their shared forward cause."]
+  },
+  "C10": {
+    "prompt": "In the next gradient-descent step, which hidden unit's parameters will change: unit 1's (w11, w12, b1) or unit 2's (w21, w22, b2)? Use your answer to C8 to explain.",
+    "answer": "For this example and plain gradient descent with a positive learning rate, only unit 1's incoming parameters change. Its gradients are ∂L/∂z₁·(x₁, x₂, 1) = 0.5·(1, 2, 1) = (0.5, 1, 0.5), so the update subtracts η times these values. Unit 2 has ∂L/∂z₂ = 0, giving (0, 0, 0) for its incoming gradients and no update.",
+    "checklist": ["Only unit 1's incoming parameters change in this step.", "Unit 1 gradients are (0.5, 1, 0.5).", "Unit 2's shut ReLU gives all-zero incoming gradients."]
+  }
+}

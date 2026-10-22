@@ -1,0 +1,7 @@
+*.tar.gz
+node_modules/
+.env*
+auth/
+data/
+secrets/
+test-results/
